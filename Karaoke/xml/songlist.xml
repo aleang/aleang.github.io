@@ -1,0 +1,54 @@
+<collection>
+<artist>
+	<name>邓丽君</name>
+	<song code='dlj1' video='true'>月亮代表我的心</song>
+	<song code='dlj2' video='true'>甜蜜蜜</song>
+</artist> 
+<artist>
+	<name>F4</name>
+	<song code='jvk1' video='false'>情非得已</song>
+	<song code='jvk2' video='false'>第一时间</song>
+</artist>
+<artist>
+	<name>任贤齐</name>
+	<song code='rxq1' video='true'>心太软</song>
+	<song code='rxq2' video='false'>夏日的么么茶</song>
+</artist> 
+<artist>
+	<name>王力宏</name>
+	<song code='wlh1' video='true'>美</song>
+	<song code='wlh2' video='true'>心跳</song>
+</artist> 
+<artist>
+	<name>周华健</name>
+	<song code='zhj1' video='false'>朋友</song>
+	<song code='zhj2' video='false'>花心</song>
+</artist>
+<artist>
+	<name>周杰伦</name>
+	<song code='zjl1' video='false'>菊花台</song>
+	<song code='zjl2' video='false'>千里之外</song>
+</artist>
+<artist>
+	<name>光良</name>
+	<song code='gll1' video='false'>童话</song>
+	<song code='gll2' video='false'>第一次</song>
+	<song code='gll3' video='false'>约定</song>
+</artist>
+<artist others="true">
+	<song code='zyy1' video='false'>祝我幸福</song>
+	<song code='qwt1' video='false'>我的歌声里</song>
+	<song code='zjj1' video='false'>无情的情书</song>
+	<song code='lll1' video='false'>同桌的你</song>
+	<song code='cmm1' video='false'>宝贝对不起</song>
+	<song code='cpp1' video='false'>相思河畔</song>
+	<song code='cff1' video='false'>出发</song>
+	<song code='twi1' video='false'>老鼠爱大米</song>
+	<song code='css1' video='false'>北京一夜</song>
+	<song code='klj1' video='false'>以爱之名</song>
+	<song code='xkq1' video='false'>复刻回忆</song>
+	<song code='ldh1' video='false'>我不够爱你</song>
+	<song code='bei1' video='false'>北京欢迎你</song>
+	<song code='ljj1' video='true'>豆浆油条</song>
+</artist>
+</collection>
