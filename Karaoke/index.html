@@ -1,0 +1,232 @@
+﻿<!--    Karaoke 2012-14	(c) Pheng L Taing -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Karaoke</title>
+<link rel="stylesheet" href="style.css" type="text/css"/>
+<link rel="Shortcut Icon" href="img\favicon.ico">
+<script src="lib/javas.js" type="text/javascript"></script>
+<script src="lib/jquery.js" type="text/javascript"></script>
+<script src="lib/jquery.bgiframe.js" type="text/javascript"></script>
+<script src="lib/jquery.dimensions.js" type="text/javascript"></script>
+<script src="lib/jquery.tooltip.js" type="text/javascript"></script>
+<script src="lib/fade.js" type="text/javascript"></script>
+
+<script language="javascript" type="text/javascript">
+$(function() {
+$('#selectSongBox a,#leftBanner div, #container input, #container span, #container a, #container img, #topBar a, #popupBox span, #popupBox img, #selectSongBox span, #selectSongBox img, #musicVideo img, #header div, #footer div').tooltip( {
+	track: true,
+	delay: 0,
+	showURL: false,
+	showBody: ";",
+	fade: 250
+});
+$('#topBanner').hover(
+	function(){
+		
+	}, function() {
+		showBanner(); // toggle to close the banner as mouse hover out
+	}
+);
+$('#ribbonDown').hover(
+	function() {
+		$('#leftControl').stop(true, true).slideDown('fast');
+	}, function() {
+		$('#leftControl').stop(true, true).slideUp('fast');
+	}
+);
+$('#cogwheel, #settingBox').hover(
+	function() {
+		$('#settingBox').stop(true, true).fadeIn('fast');
+	}, function() {
+		$('#settingBox').stop(true, true).fadeOut('slow');
+	}
+);
+$(document).keydown(function(e) {
+	e = e.keyCode; out("You've pressed key #"+ e);
+	if (e == 27) {  // esc key
+		closePanels();
+	} else if (e == 37 || e == 39) toggleBg(e);
+	  else if (e == 187 || e == 189 || e == 107 || e == 109) toggleFont(e);
+	  else if (e == 65 || e == 68) toggleWidth(e);
+	  else if (e == 87 || e == 83) toggleHeight(e);
+	  else if (e == 76) hideBox('popupBox');
+	  else if (e == 75) hideBox('selectSongBox');
+	  else if (e == 86) shortcutShowVideo();
+	  else if (e == 85) changeAutoplay();
+	  else if (e == 80) pauseMusic();
+});
+doMaintanence();
+});
+</script>
+</head>
+<body>
+<div id="container">
+	<div id="topBanner" class="hide">
+		<div id="QR">
+			<img src="img/icon.png" alt="PixPort website's icon"/>
+		</div>
+		<div id="message">
+			A work by <a href="http://www.linkedin.com/pub/pheng-taing/72/22a/534" title="Visit my LinkedIn profile;a new tab will be opened" target="_blank">Pheng L. Taing</a> &copy; 2012-14<br/>
+			Have fun learning Mandarin by singing it!<br/>
+			To see more of my work please visit <a href="http://bit.ly/pixport" title="Visit this page;a new tab will be opened" target="_blank">http://bit.ly/pixport</a>
+		</div>
+	</div>
+	<div id="header">
+		<div id="topBar">
+        	<a id="topBarText" onclick=hideBox('popupBox') class="flag flag4" title="Change Language;view more available languages (shortcut 'L')">中文</a>
+			<div id="pullBox" onclick="showBanner()" title="About Me!;click here to view more" class="arrow DownArrow">
+				<div id="whiteOver"></div>
+			</div>
+		</div>
+		<br/>
+		<div id="songPlayer" title="To pause or play;shortcut 'p'">
+			<div id="musicSelect">
+				 音乐播放器
+			</div>
+			<audio id="player" controls="" autoplay="true">
+			</audio>
+		</div>
+		<div id="leftBanner">
+			<div id="ribbonDown" title="Select a wallpaper;to toggle between backgrounds use shortcut '↔'">
+				<div class="icons icon_1" id="currentIcon">
+					<img src="img/ribbon3.png" alt="Ribbon picture on header"/>
+				</div>
+				<div id="leftControl" class="hide">
+					<span class="icons icon_0" onclick="setBackground(0)"></span>
+					<span class="icons icon_1" onclick="setBackground(1)"></span>
+					<span class="icons icon_2" onclick="setBackground(2)"></span>
+					<span class="icons icon_3" onclick="setBackground(3)"></span>
+					<span class="icons icon_4" onclick="setBackground(4)"></span>                    
+				</div>
+			</div>
+			<div id="ribbonRight">
+				<h1 id="headerBar">卡拉OK</h1>
+			</div>
+			<div id="ribbonRightTip">
+			</div>
+		</div>
+	</div>
+	<div id="navBox">
+		<a onclick="hideBox('selectSongBox')" title="Select a Song;shortcut 'k'" id="selectSongLink">选择一首歌曲</a>
+	</div>
+	<div id="contentWrapper">
+		<div id="content">
+			<div id="frontPage">
+            <!-- 
+            	this box is filled with content from XML lyric files 
+                													-->
+				<h1 id="welcomeH1">欢迎到 <strong>卡拉OK</strong> 网站</h1>
+                <hr />
+                
+            <!-- 
+            	end of filler box 
+                					-->    
+			</div>
+
+		</div>
+	</div>
+    
+<!--
+	End of Body ******************************** Start of Footer
+																-->
+	<div id="footer">
+		<div id="footer_center">
+            <div id="cogwheel">
+                <img src="img/cogwheel.png" alt="setting icon" />
+            </div>
+        <!--    <div id="helpIcon">
+                <img src="img/helpIcon.png" alt="help icon" onclick="openWindow('help.html','','width=470,height=700')" />
+            </div> -->
+			<div id="settingBox" class="hide">
+            	<span id="settingWord">设置</span>
+				<div class="settingEntry">
+					<span class="settingText"><span id="footer1" title="Adjust page width;shortcut 'a' & 'd'">屏幕宽度选择</span>:</span>
+					<input id="widthChanger" name="screen" type="range" min="750" value="750" step="2" onchange="ChangeWidth(this.value); widthRangeValue.value = value + ' px'" class="slider fullRange" max="1200"/>
+                    <output id="widthRangeValue">750 px</output>
+				</div>
+				<div class="settingEntry">
+					<span class="settingText"><span id="footer2" title="Adjust font size;shortcut '+' & '-'">字体大小</span>:</span>
+					<input name="screen" type="range" min="20" max="40" value="20" step="1" onchange="ChangeFontSize(value); fontRangeValue.value = value + ' px'" class="slider fullRange" id="fontRangeInput"/>
+                    <output id="fontRangeValue">20 px</output>
+				</div>
+                <div class="settingEntry">
+                	<span class="settingText"><span id="footer3" title="Autoplay;automatically play the selected song (shortcut 'u')">自动播放</span>:</span>
+                    <input name="screen" type="range" min="0" max="1" value="1" step="1" class="slider onoff setOn" id="autoplayInput" onchange="changeAutoplay()" on/>
+				</div>
+                <div class="settingEntry">
+                	<span class="settingText"><span id="footer4" title="Music Video;only for songs with a video (shortcut 'v')">显示视频</span>:</span>
+                    <input name="screen" type="range" min="0" max="1" value="0" step="1" onchange="hideBox('musicVideo')" class="slider onoff setOff" id="showVideoInput" disabled="disabled"/>
+				</div>
+				<div class="settingEntry">
+                	<span class="settingText"><span id="footer5" title="Shortcut keys">Shortcut</span>:</span>
+                    <input type="button" id="showShortcut" value="&rarr;" onclick="openWindow('help.html','','width=470,height=700')" style="margin-left: 7px;"/>
+				</div>
+		</div>
+	</div>
+</div>
+
+<!-- 
+	End of Main Body container ******************* Below are popup contaners
+																			-->
+<div id="popupBox" class="hide">
+	<div class="buttonBox">
+		<img id="a" src="img/exitPopup_o.png" onclick="hideBox('popupBox')" onmouseover="fadeOut(this)" onmouseout="fadeIn(this)" alt="exit language selection box" title="To exit;shortcut 'Esc' or 'L'"/>
+	</div>
+  <div class="popupTitle" onmousedown="dragStart(event, 'popupBox')" onmouseup="noHover('popupBox')">
+		<span id="languageTitle">语言</span>
+	</div>
+	<span id="langGroup1" title="European Languages">欧洲语言</span>
+	<div class="langGroup">
+		<span onclick="selectLanguage(0)" class="active"><img class="flag flag0" alt="EN flag" src=""/><a>English</a></span>
+		<span onclick="selectLanguage(1)" class="active"><img class="flag flag1" alt="DE flag" src=""/><a>Deutsch</a></span>
+		<span class="inactive"><img class="flag flag3" alt="ES flag" src=""/>Español*</span>
+		<span class="inactive"><img class="flag flag4" alt="FR flag" src=""/>Français*</span>
+  </div>
+  <span id="langGroup2" title="Asian Languages">亚洲语言</span>
+	<div class="langGroup">
+		<span onclick="selectLanguage(2)" class="active"><img class="flag flag2" alt="ZH flag" src=""/><a>中文</a></span>
+		<span class="inactive"><img class="flag flag5" alt="KH flag" src=""/> ភាសាខ្មែរ *</span>
+		<span class="inactive"><img class="flag flag6" alt="KR flag" src=""/>한국인*</span>
+		<span class="inactive"><img class="flag flag7" alt="TH flag" src=""/>ไทย*</span>
+	</div>
+  <span id="notReady">* Not available</span>
+</div>
+
+<div id="musicVideo" class="hide">
+	<div class="buttonBox">
+		<img id="c" src="img/exitPopup_o.png" onclick="hideBox('musicVideo')" onmouseover="fadeOut(this)" onmouseout="fadeIn(this)" alt="exit music video button" title="To exit;shortcut 'Esc' or 'v'"/>
+	</div>
+	<div id="videoTitle" class="popupTitle" onmousedown="dragStart(event, 'musicVideo')" onmouseup="noHover('musicVideo')">
+		 Null
+	</div>
+	<iframe id="videoIFrame" width="450" height="250" src="" frameborder="0" allowfullscreen>
+	</iframe>
+</div>
+
+
+<div id="selectSongBox" class="hide">
+	<div class="buttonBox">
+		<img id="b" src="img/exitPopup_o.png" onclick="hideBox('selectSongBox')" onmouseover="fadeOut(this)" onmouseout="fadeIn(this)" alt="exit popup box" title="To exit;shortcut 'Esc' or 's'"/>
+	</div>
+	<div class="popupTitle" onmousedown="dragStart(event, 'selectSongBox')" onmouseup="noHover('selectSongBox')">
+		<span id="songMenu">歌曲列表</span>
+	</div>
+	<div id="forScroll">
+		<!-- will be inserted after reading from XML -->
+        
+	</div>
+	<div id="extraInfo" class="footerNotes">
+		<span id="key1" title="Key" style="font-weight:bold">图例</span>: <span id="key2" title="Music MP3;only audio available">歌曲没有视频</span>, <span id="key3" title="Music Video;song contains a video" class="incVideo">歌曲有视频</span>
+	</div>
+	<div id="autoDisOption" class="footerNotes">
+		<label>
+		<input name="autoDisap" type="checkbox" onclick="turnAutoDis()" checked="checked" title="Close this window after selecting a song"/>
+		<span id="key4" title="Autoclose (ON/OFF);automatically close this window after selecting a song">选择一首歌曲后，关闭弹出框</span></label>
+	</div>
+</div>
+
+</body>
+</html>
