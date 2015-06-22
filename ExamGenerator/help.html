@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Help for Exam Generator</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="bootstrap.Cerulean.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style>
+	body { padding-top: 70px; }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			
+			<a class="navbar-brand" title="A Java application from Pheng Taing">Exam Generator</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+          	<ul class="nav navbar-nav navbar-right">
+	            <li><a href="https://github.com/aleang/" target="_blank">Visit Author's Page</a></li>
+	        </ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="row">
+		<div id="about">
+			<h3>About Exam Generator</h3>
+			<p>
+				 This application is free and open source. Feel free to distribute this application. Use, copy, share or change as you like but please credit me as the original creator. You can find more about me by visiting <a href="https://github.com/aleang/" target="_blank">https://github.com/aleang/</a>
+			</p>
+		</div>
+		<div id="how-to-use">
+			<h3>How to Use</h3>
+			<ol>
+				<li>
+					Enter the <strong>Exam Name</strong>.
+				</li>
+				<li>
+					Select a <strong>Version Number</strong>.
+				</li>
+				<li>
+					Choose <strong>Yes</strong> or <strong>No</strong> to randomise the order of questions within each section.</li>
+				<li>
+					Drag and drop <strong>Question Files</strong> into the application. A section will be created in the exam script for every file provided. (only .txt files are allowed).
+				</li>
+				<li>	
+					Select the <strong>Output folder</strong>.
+				</li>
+				<li>
+					Go to Exam > Generate
+				</li>
+			</ol>
+		</div>
+		<div id="question-file-format">
+			<h3>Question File Format</h3>
+			<div class="container">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Format
+					</div>
+					<div class="panel-body">
+						<pre>Line 1: Section Title*
+Line 2: Number of Questions
+[
+  Line 3: Question Data (Question Number : Number of Options : Question)
+  [
+    Line 4: Correct answer first
+    Line 5: Incorrect option
+    Line 6: More incorrect options
+    ... (determined by [Number of Options] set above
+  ]
+]</pre>
+						<p>
+							<strong>Rules:</strong> follow the rules to ensure the generator does not run into any problems
+						</p>
+						<ul>
+							<li>Section Title can also be HTML code (must start with &lt;h1&gt;)</li>
+							<li>if the number of questions is incorrect, not all questions are guaranteed to be read</li>
+							<li>[ brackets means &quot;one or more of...&quot;</li>
+							<li>correct answer must be first</li>
+							<li>if the option is &quot;None/All of the above&quot; and incorrect, place it last</li>
+							<li>line 3-6 may contain converters (see below) for special format</li>
+						</ul>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Special Format Converters
+					</div>
+					<div class="panel-body">
+						<dl class="dl-horizontal">
+							<dt>#[Code here]#</dt>
+							<dd>code in a stand alone paragraph</dd>
+
+							<dt>#{Inline code here}#</dt>
+							<dd>inline code (only font change)</dd>
+
+							<dt>#&lt;image filename&gt;#</dt>
+							<dd>place an image (stand alone paragraph)</dd>
+
+							<dt>#T</dt>
+							<dd>insert tab (within code)</dd>
+
+							<dt>#B</dt>
+							<dd>new line in multi-line code</dd>
+
+							<dt>#N</dt>
+							<dd>insert new line and indent</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="examples">
+			<h3>Examples</h3>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								Basic Multi-Choice Exam
+							</div>
+							<div class="panel-body">
+								<pre>Greek Language 101
+2
+1:4:What is the first letter of the Greek alphabet?
+Alpha
+Omega
+Gamma
+Pi
+2:5:Which of the following greek letters are commonly recognised symbols/units?
+All of the above
+Pi
+Omega
+Mu
+Delta</pre>
+								<p>
+									A plain and simple multi-choice exam script will be generated with randomised order of questions and options.
+								</p>
+								<div class="well">
+									<div class="embed-responsive embed-responsive-16by9">
+										<iframe class="embed-responsive-item" src="Greek Language 101-v1-[Exam Script].html"></iframe>
+									</div>
+								</div>
+							</div>
+							
+							
+						</div>
+
+					</div>
+					<div class="col-md-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								Multi-Choice with Codes/Images
+							</div>
+							<div class="panel-body">
+								<pre>&lt;h1&gt;Java Basics&lt;/h1&gt;&lt;img src=&quot;JavaLogo.jpg&quot; /&gt 
+2
+1:5:How do you declare a string variable called #{myName}# in Java?
+#{String myName;}#
+#{String: myName}#
+#{myName : String;}#
+#{@myName String}#
+#{var myName;}#
+2:4:What is the output? #[int hour = 5;#BSystem.out.println(&quot;The hour is&quot; + hour);]# 
+The hour is 5
+The hour is hour
+5
+The hour is 5 p.m.</pre>
+								<p>
+									 A customised multi-choice exam script will be generated with formatted code snippets and embedded images.
+								</p>
+								<div class="well">
+									<div class="embed-responsive embed-responsive-16by9">
+										<iframe class="embed-responsive-item" src="Java Language 101-v1-[Exam Script].html"></iframe>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end of 'Examples' section -->
+	</div>
+	<!-- end of 'Row' section -->
+</div>
+
+</body>
+</html>
