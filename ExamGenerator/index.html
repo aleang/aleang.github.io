@@ -3,14 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Help for Exam Generator</title>
+
+<!-- attempt to access local bootstrap files-->
+<script src="jquery.2.1.3.js"></script>
+<script src="bootstrap.min.js"></script>
+<link rel="stylesheet" href="bootstrap.min.css">
+
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<!-- Optional theme -->
+<!-- Cerulean theme -->
 <link rel="stylesheet" href="bootstrap.Cerulean.min.css">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 <style>
 	body { padding-top: 70px; }
+	div.panel-heading {
+		  background-color: lightcyan;
+  		text-decoration: none;
+	}
 </style>
 </head>
 <body>
@@ -31,41 +43,55 @@
 
 <div class="container">
 	<div class="row">
-		<div id="about">
+		<div>
 			<h3>About Exam Generator</h3>
 			<p>
 				 This application is free and open source. Feel free to distribute this application. Use, copy, share or change as you like but please credit me as the original creator. You can find more about me by visiting <a href="https://github.com/aleang/" target="_blank">https://github.com/aleang/</a>
 			</p>
 		</div>
-		<div id="how-to-use">
-			<h3>How to Use</h3>
-			<ol>
-				<li>
-					Enter the <strong>Exam Name</strong>.
-				</li>
-				<li>
-					Select a <strong>Version Number</strong>.
-				</li>
-				<li>
-					Choose <strong>Yes</strong> or <strong>No</strong> to randomise the order of questions within each section.</li>
-				<li>
-					Drag and drop <strong>Question Files</strong> into the application. A section will be created in the exam script for every file provided. (only .txt files are allowed).
-				</li>
-				<li>	
-					Select the <strong>Output folder</strong>.
-				</li>
-				<li>
-					Go to Exam > Generate
-				</li>
-			</ol>
-		</div>
-		<div id="question-file-format">
-			<h3>Question File Format</h3>
-			<div class="container">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						Format
+		
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
+			<div class="panel panel-default">
+				<a href="#collapseOne" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<h4 class="panel-title">How to Use</h4>
+
 					</div>
+				</a>
+				<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labbledby="headingOne">
+					<div class="list-group">
+						<ol>
+							<li>
+								Enter the <strong>Exam Name</strong>.
+							</li>
+							<li>
+								Select a <strong>Version Number</strong>.
+							</li>
+							<li>
+								Choose <strong>Yes</strong> or <strong>No</strong> to randomise the order of questions within each section.</li>
+							<li>
+								Drag and drop <strong>Question Files</strong> into the application. A section will be created in the exam script for every file provided. (only .txt files are allowed).
+							</li>
+							<li>	
+								Select the <strong>Output folder</strong>.
+							</li>
+							<li>
+								Go to Exam > Generate
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<a href="#collapseTwo" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+					<div class="panel-heading" role="tab" id="headingTwo">
+						
+						<h4 class="panel-title">Question File Format</h4>	
+						
+					</div>
+				</a>
+				<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labbledby="headingTwo">
 					<div class="panel-body">
 						<pre>Line 1: Section Title*
 Line 2: Number of Questions
@@ -79,29 +105,37 @@ Line 2: Number of Questions
   ]
 ]</pre>
 						<p>
-							<strong>Rules:</strong> follow the rules to ensure the generator does not run into any problems
+							<strong>Rules:</strong> follow the rules to ensure the generator does not run into any problem
 						</p>
 						<ul>
 							<li>Section Title can also be HTML code (must start with &lt;h1&gt;)</li>
 							<li>if the number of questions is incorrect, not all questions are guaranteed to be read</li>
 							<li>[ brackets means &quot;one or more of...&quot;</li>
-							<li>correct answer must be first</li>
-							<li>if the option is &quot;None/All of the above&quot; and incorrect, place it last</li>
+							<li>correct answer must be placed first, even if it is &quot;None/All of the above&quot;</li>
+							<li>if the option is &quot;None/All of the above&quot; and it is incorrect, place it last</li>
 							<li>line 3-6 may contain converters (see below) for special format</li>
 						</ul>
+
+
 					</div>
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						Special Format Converters
+			</div>
+
+			<div class="panel panel-default">
+				<a href="#collapseThree" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+					<div class="panel-heading" role="tab" id="headingThree">
+						<h4 class="panel-title">Special Format Converters</h4>
 					</div>
+				</a>
+				<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labbledby="headingThree">
 					<div class="panel-body">
+					
 						<dl class="dl-horizontal">
 							<dt>#[Code here]#</dt>
 							<dd>code in a stand alone paragraph</dd>
 
 							<dt>#{Inline code here}#</dt>
-							<dd>inline code (only font change)</dd>
+							<dd>inline code</dd>
 
 							<dt>#&lt;image filename&gt;#</dt>
 							<dd>place an image (stand alone paragraph)</dd>
@@ -118,18 +152,27 @@ Line 2: Number of Questions
 					</div>
 				</div>
 			</div>
-		</div>
-		<div id="examples">
-			<h3>Examples</h3>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								Basic Multi-Choice Exam
-							</div>
-							<div class="panel-body">
-								<pre>Greek Language 101
+
+
+			<div class="panel panel-default">
+				<a href="#collapseFour" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+					<div class="panel-heading" role="tab" id="headingFour">
+						<h4 class="panel-title">Examples</h4>
+					
+					
+					</div>
+				</a>
+				<div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labbledby="headingFour">
+					<div class="panel-body">
+
+							<div class="row">
+								<div class="col-md-6">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											Basic Multi-Choice Exam
+										</div>
+										<div class="panel-body">
+											<pre>Greek Language 101
 2
 1:4:What is the first letter of the Greek alphabet?
 Alpha
@@ -142,27 +185,27 @@ Pi
 Omega
 Mu
 Delta</pre>
-								<p>
-									A plain and simple multi-choice exam script will be generated with randomised order of questions and options.
-								</p>
-								<div class="well">
-									<div class="embed-responsive embed-responsive-16by9">
-										<iframe class="embed-responsive-item" src="Greek Language 101-v1-[Exam Script].html"></iframe>
+											<p>
+												A plain and simple multi-choice exam script will be generated with randomised order of questions and options.
+											</p>
+											<div class="well">
+												<div class="embed-responsive embed-responsive-16by9">
+													<iframe class="embed-responsive-item" src="Greek Language 101-v1-[Exam Script].html"></iframe>
+												</div>
+											</div>
+										</div>
+										
+										
 									</div>
-								</div>
-							</div>
-							
-							
-						</div>
 
-					</div>
-					<div class="col-md-6">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								Multi-Choice with Codes/Images
-							</div>
-							<div class="panel-body">
-								<pre>&lt;h1&gt;Java Basics&lt;/h1&gt;&lt;img src=&quot;JavaLogo.jpg&quot; /&gt 
+								</div>
+								<div class="col-md-6">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											Multi-Choice with Codes/Images
+										</div>
+										<div class="panel-body">
+											<pre>&lt;h1&gt;Java Basics&lt;/h1&gt;&lt;img src=&quot;JavaLogo.jpg&quot; /&gt 
 2
 1:5:How do you declare a string variable called #{myName}# in Java?
 #{String myName;}#
@@ -175,23 +218,25 @@ The hour is 5
 The hour is hour
 5
 The hour is 5 p.m.</pre>
-								<p>
-									 A customised multi-choice exam script will be generated with formatted code snippets and embedded images.
-								</p>
-								<div class="well">
-									<div class="embed-responsive embed-responsive-16by9">
-										<iframe class="embed-responsive-item" src="Java Language 101-v1-[Exam Script].html"></iframe>
+											<p>
+												 A customised multi-choice exam script will be generated with formatted code snippets and embedded images.
+											</p>
+											<div class="well">
+												<div class="embed-responsive embed-responsive-16by9">
+													<iframe class="embed-responsive-item" src="Java Language 101-v1-[Exam Script].html"></iframe>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<!-- end of 'Examples' section -->
+			</div><!-- end of 'Examples' section -->
+
+
+		</div><!-- end of Accordion-->
 	</div>
-	<!-- end of 'Row' section -->
 </div>
 
 </body>
