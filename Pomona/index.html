@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <script src="jquery-1.9.1.min.js"></script>
+	<script src="jquery.reel.js"></script>
+	<title>Our New Home</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+<style>
+body{
+	font-family: sans-serif;
+	background-image: url(img/bg.png);
+	background-repeat: repeat;	
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+div {
+	margin-bottom: 1em;
+}
+.center {
+	margin-left:auto;
+	margin-right:auto;
+	width:600px;
+}
+.centerWide {
+	margin-left:auto; 
+	margin-right:auto; 
+	width:800px;
+}
+.reel-annotation {
+	display: block;
+	left: 200px;
+	top: 60px;
+	color: #111;
+	background-color:#CCC;
+	padding: 4px;
+	opacity: 0.8;
+}
+.header {
+	font-size: x-large;
+	opacity: 0.7;
+	left: 10px;
+	top: 10px;
+	background-color: white;
+	z-index: 50;
+	cursor: default;
+}
+.garden{
+	font-size: small;
+	font-family:"Comic Sans MS", cursive;
+	border: 1px solid gold;
+	font-style: italic;
+	opacity: .8;
+	background-color: rgb(245, 245, 163);
+}
+h1,h2 {
+	font-family: sans-serif;
+	text-align: center;
+}
+hr {
+	border: 0;
+	border-bottom: 3px dashed #FFFFFF;
+	background: #EAF7FF;
+}
+p{
+	text-align:center;
+}
+a.up {
+	border: thin solid gray;
+	text-decoration: none;
+	padding: 3px 5px 3px 5px;
+	border-radius: 5px;
+	color: slategrey;
+	background-color: whitesmoke;
+}
+a.up:hover {
+	font-weight: bolder;
+}
+a.icon {
+	padding-left: 20px;
+	
+	background-repeat: no-repeat;
+	background-position: 2px center;
+}
+a.robin {
+	background-image: url(img/robinIcon.png);
+}
+a.indoor {
+	background-image: url(img/indoor.png);
+}
+a.outdoor {
+	background-image: url(img/outdoor.png);
+}
+a.fish {
+	background-image: url(img/fishIcon.png);
+}
+a.goUp {
+	background-image: url(img/top.png);
+}
+#controlPanel {
+	width: auto;
+	height: auto;
+	background-color: white;
+	top: 40%;
+	position: fixed;
+	padding: 10px;
+	border-radius: 10px;
+	z-index: 99;
+	border: powderblue 1px solid;
+	background: #e4f5fc; /* Old browsers */
+	background: rgb(255,255,255); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(243,243,243,1) 50%, rgba(237,237,237,1) 51%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(50%,rgba(243,243,243,1)), color-stop(51%,rgba(237,237,237,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* W3C */
+}
+#controlPanel a{
+	margin-top: 5px;
+	line-height: 1em;
+	display: block;
+
+}
+</style>
+<script>
+
+function setDim(box, x) {
+	box.setAttribute('style', "opacity:" + x + ";");
+}
+
+</script>
+</head>
+
+<body id="top">
+<h1 title="back in 2014">Our New Home</h1>
+<h2>Pheng and Matty</h2>
+<hr/>
+
+<div id="controlPanel" onmouseover="setDim(this, 1)" onmouseout="setDim(this, 0.7)" style="opacity: 0.7" > 
+	Go to
+	<a data-scroll href="#outside" class="up icon outdoor">Outside</a>
+	<a data-scroll href="#inside" data-scroll class="up icon indoor">Inside</a>
+	<a data-scroll href="#robin" data-scroll class="up icon robin">Robin</a>
+	<a data-scroll href="#fish" data-scroll class="up icon fish">Fish Tank</a>
+</div>
+
+<div class="center">
+	<a id="outside"></a><h1>Outside</h1>
+	<p>Jump to <a data-scroll href="#garage" class="up">Garage</a> <a data-scroll href="#backyard" class="up">Backyard</a> <a data-scroll href="#garden" class="up">Garden</a> <a data-scroll href="#robin" class="up icon robin">"Robin"</a> or <a data-scroll href="#inside" data-scroll class="up icon indoor">Inside</a></p>
+</div>
+<div class="centerWide">
+	<a id="fronthouse"></a>
+  <img src="img/fronthouse.jpg" width="780px" height="300px"
+		class="reel"
+		data-image="img/fronthouse.jpg"
+		data-stitched="811"
+		data-loops="false"
+        data-cursor="pointer"
+		data-clickfree="false"
+        data-speed="0.15"
+		id="fronthouse" />
+
+    <span class="reel-annotation header" id="fronthouse0"
+        data-for="fronthouse"
+        data-x="0px"
+        data-y="10">Our Home</span>
+</div>
+<div class="center">
+<div id="porch-reel" class="reel box1">
+	<a id="porch"></a>
+	<img src="img/porch.png" width="600" height="300"
+        class="reel"
+        data-image="img/porch.png"
+        data-stitched="842"
+        data-loops="false"
+		data-speed="0.05"
+        data-cursor="ew-resize"
+        data-frame="16"
+        id="porch">
+	<a class="reel-annotation" id="porch1" data-scroll
+		href="#ingarage"
+		data-for="porch"
+        data-x="80"
+        data-y="140">Garage</a>
+    <span class="reel-annotation header" id="porch0"
+        data-for="porch"
+        data-x="0px"
+        data-y="10">Porch</span>
+</div>
+
+<div>
+	<a id="garage"></a>
+	<img src="img/garage.jpg" width="500px" height="300px"
+        class="reel"
+        data-image="img/garage.jpg"
+        data-stitched="587"
+        data-loops="false"
+		data-speed="0.15"
+        data-cursor="ew-resize"
+        data-clickfree="false"
+        data-frame="50"
+        id="garage" />
+	<span class="reel-annotation header" id="garage0"
+        data-for="garage"
+        data-x="0px"
+        data-y="10">Back of House & Garage</span>
+</div>
+
+<div>
+	<a id="ingarage"></a>
+	<img src="img/ingarage.jpg" width="600px" height="300px"
+        class="reel"
+        data-image="img/ingarage.jpg"
+        data-stitched="1311"
+        data-loops="false"
+		data-speed="0.05"
+        data-cursor="ew-resize"
+        data-clickfree="false"
+        data-frame="20"
+        id="ingarage" />
+	<span class="reel-annotation header" id="ingarage0"
+        data-for="ingarage"
+        data-x="0px"
+        data-y="10">Inside Garage</span>
+	<a class="reel-annotation" id="ingarage1"  data-scroll
+		href="#garden"
+		data-for="ingarage"
+        data-x="520"
+        data-y="120">go to Garden</a>
+
+</div>
+
+
+<div>
+<a id="backyard"></a>
+<img src="img/backyard.jpg" width="600px" height="300px"
+        class="reel"
+        data-image="img/backyard.jpg"
+        data-stitched="711"
+        data-loops="false"
+		data-speed="0.15"
+        data-cursor="ew-resize"
+        data-clickfree="false"
+        data-frame="1"
+        id="backyard" />
+	<span class="reel-annotation header" id="backyard0"
+        data-for="backyard"
+        data-x="0px"
+        data-y="10">Backyard</span>
+	<a class="reel-annotation" id="backyard1" data-scroll
+		href="#hothouse"
+		data-for="backyard"
+        data-x="80"
+        data-y="220">Hothouse</a>
+</div>
+
+</div>
+<div class="centerWide">
+<a id="garden"></a>
+<img src="img/garden.jpg" width="800px" height="300px"
+        class="reel"
+        data-image="img/garden.jpg"
+        data-stitched="1598"
+        data-loops="false"
+		data-speed="0.03"
+        data-rebound="2"
+        data-cursor="ew-resize"
+        data-clickfree="false"
+		id="garden" />
+	<span class="reel-annotation header" id="garden0"
+        data-for="garden"
+        data-x="0px"
+        data-y="10">Garden (18th April)</span>
+	<span class="reel-annotation garden" id="garden1"
+		data-for="garden"
+        data-x="220"
+        data-y="260">Raspberry bush</span>
+	<span class="reel-annotation garden" id="garden2"
+		data-for="garden"
+        data-x="460"
+        data-y="180">Strawberry patch</span>
+  <span class="reel-annotation garden" id="garden3"
+		data-for="garden"
+        data-x="260"
+        data-y="180">Blueberry</span>
+  <span class="reel-annotation garden" id="garden4"
+		data-for="garden"
+        data-x="20"
+        data-y="240">Currents</span>
+
+
+<a id="garden2"></a>
+<img src="img/garden2.jpg" width="800px" height="300px"
+        class="reel"
+        data-image="img/garden2.jpg"
+        data-stitched="1011"
+        data-loops="false"
+        data-rebound="2"
+		data-speed="0.10"
+        data-cursor="ew-resize"
+        data-clickfree="false"
+		data-frame="23"
+        id="garden2" />
+	<span class="reel-annotation header" id="garden2_0"
+        data-for="garden2"
+        data-x="0px"
+        data-y="10">Garden (24th April)</span>
+
+
+<a id="hothouse"></a>
+<img src="img/hothouse.jpg" width="800px" height="300px"
+		class="reel"
+        data-image="img/hothouse.jpg"
+        data-stitched="800"
+        data-cursor="none"
+		data-speed="0.15"
+        data-loops="false"
+        id="hothouse" />
+	<span class="reel-annotation header" id="hothouse0"
+        data-for="hothouse"
+        data-x="0px"
+        data-y="10">Hothouse Plants</span>
+
+
+        
+</div>
+
+<div class="center">
+<div>
+<img src="img/robin.jpg" width="400px" height="300px"
+        class="reel"
+        data-image="img/robin.jpg"
+        data-stitched="400"
+        data-cursor="default"
+        data-loops="false"
+        id="robin" />
+	<span class="reel-annotation header" id="robin0"
+        data-for="robin"
+        data-x="0px"
+        data-y="10">Robin Hen</span>
+</div>    
+</div>
+
+
+
+
+
+<hr />
+
+
+
+<h1 data-scroll id="inside">Inside</h1>
+<p>Jump to <a data-scroll href="#master" class="up">Master Room</a> <a data-scroll href="#guestroom" class="up">Guest Room</a> <a data-scroll href="#kitchen" class="up">Kitchen</a> <a data-scroll href="#bathroom" class="up">Bathroom</a> or <a data-scroll href="#outside" class="up icon outdoor">Outside</a></p>
+
+<div class="centerWide">
+	<img src="img/living.jpg" width="800px" height="300px"
+        class="reel"
+        data-image="img/living.jpg"
+        data-stitched="833"
+        data-loops="false"
+		data-speed="0.15"
+        data-cursor="ew-resize"
+        data-frame="8"
+        id="living" />
+	<span class="reel-annotation header" id="living0"
+        data-for="living"
+        data-x="0px"
+        data-y="10">Living Room</span>
+	<span class="reel-annotation" id="living1"
+		data-for="living"
+        data-x="650"
+        data-y="20">Heat Pump</span>
+	<a class="reel-annotation" id="living2" data-scroll
+		href="#outside"
+		data-for="living"
+        data-x="250"
+        data-y="140">Go outside</a>
+</div>
+<div class="center">
+
+<div>
+<img src="img/fishtank.jpg" width="538px" height="300px"
+        class="reel"
+        data-image="img/fishtank.jpg"
+        data-stitched="538"
+        data-cursor="default"
+        data-loops="false"
+        id="fish" />
+	<span class="reel-annotation header" id="fish0"
+        data-for="fish"
+        data-x="0px"
+        data-y="10">Fish Tank</span>
+<img src="img/fish.jpg" width="300px" height="300px"
+		class="reel"
+		data-stitched="300"
+		data-loops="false"
+		data-image="img/fish.jpg"
+		data-cursor="default"
+		id="findFish" />
+	<span class="reel-annotation header" id="findFish0"
+        data-for="findFish"
+        data-x="0px"
+        data-y="10">Can you find a fish?</span>	
+</div> 
+<div>
+	<img src="img/master.jpg" width="600px" height="300px"
+        class="reel"
+        data-image="img/master.jpg"
+        data-stitched="729"
+        data-loops="false"
+		data-speed="0.1"
+        data-cursor="ew-resize"
+        data-frame="8"
+        id="master" />
+	<span class="reel-annotation header" id="master0"
+        data-for="master"
+        data-x="0px"
+        data-y="10">Master Room</span>
+</div>
+
+<div>
+	<img src="img/guestroom.jpg" width="600px" height="300px"
+        class="reel"
+        data-image="img/guestroom.jpg"
+        data-stitched="880"
+        data-loops="false"
+		data-speed="0.10"
+        data-cursor="ew-resize"
+        data-frame="5"
+        id="guestroom" />
+	<span class="reel-annotation header" id="guestroom0"
+        data-for="guestroom"
+        data-x="0px"
+        data-y="10">Guest Room</span>
+</div>
+
+<div>
+	<img src="img/kitchen.jpg" width="600px" height="300px"
+        class="reel"
+        data-image="img/kitchen.jpg"
+        data-stitched="668"
+        data-loops="false"
+		data-speed="0.15"
+        data-cursor="ew-resize"
+        data-frame="8"
+        id="kitchen" />
+	<span class="reel-annotation header" id="kitchen0"
+        data-for="kitchen"
+        data-x="0px"
+        data-y="10">Kitchen</span>
+</div>
+
+<div>
+	<img src="img/bathroom.jpg" width="600px" height="300px"
+        class="reel"
+        data-image="img/bathroom.jpg"
+        data-stitched="733"
+        data-loops="false"
+		data-speed="0.1"
+        data-cursor="ew-resize"
+        data-frame="28"
+        id="bathroom" />
+	<span class="reel-annotation header" id="bathroom0"
+        data-for="bathroom"
+        data-x="0px"
+        data-y="10">Bathroom</span>
+</div>
+
+<p><a data-scroll data-options="speed: 2500;
+                 updateURL: false" href="#top" class="up icon goUp">Go back to top</a></p>
+
+</div>
+
+
+
+	<!-- Javascript -->
+	<script src='smooth-scroll.js'></script>
+	<script>
+		smoothScroll.init({
+			speed: 1500,
+			easing: 'easeOutCubic',
+			offset: 0,
+			updateURL: false,
+			callbackBefore: function ( toggle, anchor ) {},
+			callbackAfter: function ( toggle, anchor ) {}
+		});
+	</script>
+
+</body>
+</html>
