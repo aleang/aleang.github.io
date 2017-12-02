@@ -58,7 +58,8 @@ $(document).ready(function(){
         var amount = Number($('#amount').val());
         var profitDollar = $('#profitDollar');
         var profitPercentage = $('#profitPercentage');
-
+        profitDollar.val('');
+        profitPercentage.val('');
         if (boughtAt * soldAt * amount === 0) return;
         var bitAmount = (amount / boughtAt);
         var moneyOut = bitAmount * soldAt;
