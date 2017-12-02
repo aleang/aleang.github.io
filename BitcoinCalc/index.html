@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"> 
+    <title>Bitcoin Prices</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+
+    $("#refreshData").click(function(){
+        var cryptopiaUri = "https://www.cryptopia.co.nz/api/GetMarketORders/BTC_NZDT/3";
+        
+        $.ajax({
+            url: cryptopiaUri,
+            success: function(json) {
+                if (!json.Success) return;
+                
+                var buySellData = json.Data.Buy.concat(json.Data.Sell);
+                var tableBody = $('#cryptopia-rows');
+                tableBody.empty();
+                for (var i = 0; i < buySellData.length; i++) {
+                    var type, price, volume, total;
+                    var entry = buySellData[i];
+                    type = i < buySellData.length / 2 ? 'Buy' : 'Sell';
+                    rowWithClass = i < buySellData.length / 2 ? 
+                        '<tr class="table-info">' : 
+                        '<tr class="table-warning">';
+                    var entryString =  rowWithClass +
+                        '<td>' + type + '</td>' + 
+                        '<td>' + Number(entry.Price).toFixed(2) + '</td>' +
+                        '<td>' + Number(entry.Volume).toFixed(6) + '</td>' +
+                        '<td class="text-right">' + Number(entry.Total).toFixed(2) + '</td></tr>';
+                    tableBody.append(entryString);
+
+                    if (i === 0) {
+                        $('#soldAt').val(Number(entry.Price));
+                    }
+                }
+
+                
+            }
+        });
+
+       
+    });
+    setTimeout(refreshDataFunc, 50);
+    
+    var refreshDataFunc = function() {
+       $("#refreshData").trigger('click');
+    }
+
+    refreshDataFunc();
+
+    var calculateProfit = function() {        
+        var boughtAt = Number($('#boughtAt').val());
+        var soldAt = Number($('#soldAt').val());
+        var amount = Number($('#amount').val());
+        var profitDollar = $('#profitDollar');
+        var profitPercentage = $('#profitPercentage');
+
+        if (boughtAt * soldAt * amount === 0) return;
+        var bitAmount = (amount / boughtAt);
+        var moneyOut = bitAmount * soldAt;
+        profitDollar.val(Number(moneyOut - amount).toFixed(2));
+        profitPercentage.val(Number(moneyOut / amount).toFixed(2));
+    }
+
+    $('#calculatorForm :input').change(calculateProfit);
+});
+    
+</script>
+</head>
+<body>
+<div class="container">
+    <main role="main">
+
+        <div class="jumbotron">
+        <h1 class="display-2">Bitcoin Prices</h1>
+        <p class="lead">Work out the profit from buying and selling at different exchanges.</p>
+        <p><a class="btn btn-lg btn-success" href="#" role="button" id="refreshData">Refresh data</a></p>
+        </div>
+
+        <div class="row marketing">
+        <div class="col-lg-6">
+            <h4>Current Prices at Cryptopia</h4>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Trade</th>
+                        <th>Price ($NZD)</th>
+                        <th>Volume (Ƀ)</th>
+                        <th class="text-right">Total ($NZD)</th>
+                    </tr>
+                </thead>
+                <tbody id="cryptopia-rows">
+                    <tr>
+                        <td colspan="4">Loading ... </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-6">
+            <h4>Calculator</h4>
+            
+            <form id="calculatorForm">
+                <div class="form-group row">
+                    <label for="boughtAt" class="col-sm-5 col-form-label">Bought at ($ NZ)</label>
+                    <div class="col-sm-7">
+                        <input type="number" class="form-control" id="boughtAt" placeholder="12000" step="any">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="soldAt" class="col-sm-5 col-form-label">Sold at ($ NZ)</label>
+                    <div class="col-sm-7">
+                        <input type="number" class="form-control" id="soldAt" placeholder="14000" step="any">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="amount" class="col-sm-5 col-form-label">Amount ($ NZ)</label>
+                    <div class="col-sm-7">
+                        <input type="number" class="form-control" id="amount" placeholder="500" step="any">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Profit ($ NZ)</label>
+                    <div class="col-sm-7">
+                        <input class="form-control" type="number" id="profitDollar" placeholder="" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Profit (%)</label>
+                    <div class="col-sm-7">
+                        <input class="form-control" type="number" id="profitPercentage" placeholder="" readonly>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>© Pheng Taing 2017</p>
+    </footer>
+
+</div>
+</body>
+</html>
