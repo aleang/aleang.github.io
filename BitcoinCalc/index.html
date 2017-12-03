@@ -10,7 +10,6 @@ $(document).ready(function(){
 
     $("#refreshData").click(function(){
         var cryptopiaUri = "https://www.cryptopia.co.nz/api/GetMarketORders/BTC_NZDT/3";
-        
         $.ajax({
             url: cryptopiaUri,
             success: function(json) {
@@ -36,19 +35,41 @@ $(document).ready(function(){
                     if (i === 0) {
                         $('#soldAt').val(Number(entry.Price));
                     }
-                }
-
-                
+                }                
             }
         });
+        var kiwiCoinUri = "https://kiwi-coin.com/api/order_book";
+        $.ajax({
+            url: kiwiCoinUri,
+            type: 'GET',
+            dataType: 'json',
 
+            contentType: 'text/json',
+            //crossDomain: true,
+            success: function(json) {
+                console.log(json);
+            },
+            error: function(x, y, z) {
+                console.log(x);
+                console.log(y);
+                console.log(z);
+            }
+        }).done(function (x) {
+            alert('OK' + x);
+
+        }).fail(function ( jqXHR, textStatus, errorThrown ) {
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        });
        
     });
-    setTimeout(refreshDataFunc, 50);
+    
     
     var refreshDataFunc = function() {
        $("#refreshData").trigger('click');
     }
+    setTimeout(refreshDataFunc, 50);
 
     refreshDataFunc();
 
@@ -58,8 +79,7 @@ $(document).ready(function(){
         var amount = Number($('#amount').val());
         var profitDollar = $('#profitDollar');
         var profitPercentage = $('#profitPercentage');
-        profitDollar.val('');
-        profitPercentage.val('');
+
         if (boughtAt * soldAt * amount === 0) return;
         var bitAmount = (amount / boughtAt);
         var moneyOut = bitAmount * soldAt;
@@ -74,17 +94,17 @@ $(document).ready(function(){
 </head>
 <body>
 <div class="container">
-    <main role="main">
+<main role="main">
 
-        <div class="jumbotron">
-        <h1 class="display-2">Bitcoin Prices</h1>
-        <p class="lead">Work out the profit from buying and selling at different exchanges.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button" id="refreshData">Refresh data</a></p>
-        </div>
+    <div class="page-header">
+        <h1>
+            <a class="btn btn-lg btn-info" href="#" role="button" id="refreshData">⟳ Bitcoin Prices</a>
+        </h1>
+    </div>
 
-        <div class="row marketing">
+    <div class="row">
         <div class="col-lg-6">
-            <h4>Current Prices at Cryptopia</h4>
+            <h4>Cryptopia</h4>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -101,7 +121,26 @@ $(document).ready(function(){
                 </tbody>
             </table>
         </div>
-
+        <div class="col-lg-6">
+            <h4>Kiwi-Coin</h4>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Trade</th>
+                        <th>Price ($NZD)</th>
+                        <th>Volume (Ƀ)</th>
+                        <th class="text-right">Total ($NZD)</th>
+                    </tr>
+                </thead>
+                <tbody id="kiwicoin-rows">
+                    <tr>
+                        <td colspan="4">Loading ... </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-6">
             <h4>Calculator</h4>
             
@@ -138,13 +177,13 @@ $(document).ready(function(){
                 </div>
             </form>
         </div>
-        </div>
+        
+    </div>
+</main>
 
-    </main>
-
-    <footer class="footer">
-        <p>© Pheng Taing 2017</p>
-    </footer>
+<footer class="footer">
+    <p>© Pheng Taing 2017</p>
+</footer>
 
 </div>
 </body>
