@@ -84,7 +84,7 @@ $(document).ready(function(){
         var bitAmount = (amount / boughtAt);
         var moneyOut = bitAmount * soldAt;
         profitDollar.val(Number(moneyOut - amount).toFixed(2));
-        profitPercentage.val(Number((moneyOut - amount) / amount).toFixed(2));
+        profitPercentage.val(Number((moneyOut - amount) / amount * 100).toFixed(2));
     }
 
     $('#calculatorForm :input').change(calculateProfit);
