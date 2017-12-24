@@ -7,7 +7,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-
     $("#refreshData").click(function(){
         var cryptopiaUri = "https://www.cryptopia.co.nz/api/GetMarketORders/BTC_NZDT/3";
         $.ajax({
@@ -38,34 +37,8 @@ $(document).ready(function(){
                 }                
             }
         });
-        var kiwiCoinUri = "https://kiwi-coin.com/api/order_book";
-        $.ajax({
-            url: kiwiCoinUri,
-            type: 'GET',
-            dataType: 'json',
-
-            contentType: 'text/json',
-            crossDomain: true,
-            success: function(json) {
-                console.log(json);
-            },
-            error: function(x, y, z) {
-                console.log(x);
-                console.log(y);
-                console.log(z);
-            }
-        }).done(function (x) {
-            alert('OK' + x);
-
-        }).fail(function ( jqXHR, textStatus, errorThrown ) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
-        });
-       
     });
-    
-    
+
     var refreshDataFunc = function() {
        $("#refreshData").trigger('click');
     }
@@ -89,13 +62,12 @@ $(document).ready(function(){
 
     $('#calculatorForm :input').change(calculateProfit);
 });
-    
 </script>
 </head>
 <body>
 <div class="container">
 <main role="main">
-
+    
     <div class="page-header">
         <h1>
             <a class="btn btn-lg btn-info" href="#" role="button" id="refreshData">⟳ Bitcoin Prices</a>
@@ -120,65 +92,71 @@ $(document).ready(function(){
                     </tr>
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col">
+                    <h4>Calculator</h4>
+                    
+                    <form id="calculatorForm">
+                        <div class="form-group row">
+                            <label for="boughtAt" class="col-sm-5 col-form-label">Bought at ($ NZ)</label>
+                            <div class="col-sm-7">
+                                <input type="number" class="form-control" id="boughtAt" placeholder="12000" step="any">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="soldAt" class="col-sm-5 col-form-label">Sold at ($ NZ)</label>
+                            <div class="col-sm-7">
+                                <input type="number" class="form-control" id="soldAt" placeholder="14000" step="any">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="amount" class="col-sm-5 col-form-label">Amount ($ NZ)</label>
+                            <div class="col-sm-7">
+                                <input type="number" class="form-control" id="amount" placeholder="500" step="any">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Profit ($ NZ)</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" type="number" id="profitDollar" placeholder="" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Profit (%)</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" type="number" id="profitPercentage" placeholder="" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
         </div>
+
         <div class="col-lg-6">
-            <h4>Kiwi-Coin</h4>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Trade</th>
-                        <th>Price ($NZD)</th>
-                        <th>Volume (Ƀ)</th>
-                        <th class="text-right">Total ($NZD)</th>
-                    </tr>
-                </thead>
-                <tbody id="kiwicoin-rows">
-                    <tr>
-                        <td colspan="4">Loading ... </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <h4>Calculator</h4>
+            <h4>Prices</h4>
+            <div class="row">
+                <div class="col-lg-8">
+                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="bitcoin" data-base="NZD" data-secondary="USD" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
+                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="ethereum" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
+                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="litecoin" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
+                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="monero" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
+                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="iota" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
+                    
+                </div>
+                <div class="col-lg-4">
+                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="dash" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
+                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="zcash" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
+                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="nem" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
+                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="nav-coin" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
+                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="gaycoin" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
+                </div>
+            </div>
+            </div>
             
-            <form id="calculatorForm">
-                <div class="form-group row">
-                    <label for="boughtAt" class="col-sm-5 col-form-label">Bought at ($ NZ)</label>
-                    <div class="col-sm-7">
-                        <input type="number" class="form-control" id="boughtAt" placeholder="12000" step="any">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="soldAt" class="col-sm-5 col-form-label">Sold at ($ NZ)</label>
-                    <div class="col-sm-7">
-                        <input type="number" class="form-control" id="soldAt" placeholder="14000" step="any">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="amount" class="col-sm-5 col-form-label">Amount ($ NZ)</label>
-                    <div class="col-sm-7">
-                        <input type="number" class="form-control" id="amount" placeholder="500" step="any">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-5 col-form-label">Profit ($ NZ)</label>
-                    <div class="col-sm-7">
-                        <input class="form-control" type="number" id="profitDollar" placeholder="" readonly>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-5 col-form-label">Profit (%)</label>
-                    <div class="col-sm-7">
-                        <input class="form-control" type="number" id="profitPercentage" placeholder="" readonly>
-                    </div>
-                </div>
-            </form>
-        </div>
-        
     </div>
+    
+    
 </main>
 
 <footer class="footer">
