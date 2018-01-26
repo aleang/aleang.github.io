@@ -5,62 +5,171 @@
     <title>Bitcoin Prices</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style type="text/css">
+        .table td {
+            padding: 0;
+            text-align: right;
+        }
+        .table-hover tr:hover {
+            font-weight: bolder;
+        }
+    </style>
 <script>
 $(document).ready(function(){
-    $("#refreshData").click(function(){
-        var cryptopiaUri = "https://www.cryptopia.co.nz/api/GetMarketORders/BTC_NZDT/3";
+    $("#refreshPrices").click(function(){
+
+        var cryptopiaUri = "https://www.cryptopia.co.nz/api/GetMarketORders/BTC_NZDT/5";
         $.ajax({
             url: cryptopiaUri,
             success: function(json) {
                 if (!json.Success) return;
                 
                 var buySellData = json.Data.Buy.concat(json.Data.Sell);
+                var buyData = json.Data.Buy;
+                var sellData = json.Data.Sell;
                 var tableBody = $('#cryptopia-rows');
                 tableBody.empty();
-                for (var i = 0; i < buySellData.length; i++) {
-                    var type, price, volume, total;
-                    var entry = buySellData[i];
-                    type = i < buySellData.length / 2 ? 'Buy' : 'Sell';
-                    rowWithClass = i < buySellData.length / 2 ? 
-                        '<tr class="table-info">' : 
-                        '<tr class="table-warning">';
-                    var entryString =  rowWithClass +
-                        '<td>' + type + '</td>' + 
-                        '<td>' + Number(entry.Price).toFixed(2) + '</td>' +
-                        '<td>' + Number(entry.Volume).toFixed(6) + '</td>' +
-                        '<td class="text-right">' + Number(entry.Total).toFixed(2) + '</td></tr>';
-                    tableBody.append(entryString);
+                var accumulateBuy = 0;
+                var accumulateSell = 0;
+                var accumString = '';
+                var highestBuy, lowestSell;
 
-                    if (i === 0) {
-                        $('#soldAt').val(Number(entry.Price));
-                    }
-                }                
+                for (var i = 0; i < 5; i++) {
+                    var type, price, volume, total;
+                    var entry = buyData[i];
+                    price = entry.Price;
+                    volume = entry.Volume;
+                    total = price * volume;
+                    accumulateBuy += total;
+                    rowWithClass = '<tr class="table-info">' 
+                    var entryString =  rowWithClass +                    
+                        '<td>' + Number(price).toFixed(2) + '</td>' +
+                        '<td>' + Number(volume).toFixed(6) + '</td>' +
+                        '<td>' + Number(price * volume).toFixed(2) + '</td>' + 
+                        '<td>' + Number(accumulateBuy).toFixed(2) + '</td></tr>';
+                    accumString = entryString + accumString;
+                    if (i == 0) highestBuy = price;
+                }
+                tableBody.append(accumString);
+
+                for (var i = 0; i < 5; i++) {
+                    var type, price, volume, total;
+                    var entry = sellData[i];
+                    price = entry.Price;
+                    volume = entry.Volume;
+                    total = price * volume;
+                    accumulateSell += total;
+                    rowWithClass = '<tr class="table-warning">' 
+                    var entryString =  rowWithClass +                    
+                        '<td>' + Number(price).toFixed(2) + '</td>' +
+                        '<td>' + Number(volume).toFixed(6) + '</td>' +
+                        '<td>' + Number(price * volume).toFixed(2) + '</td>' + 
+                        '<td>' + Number(accumulateSell).toFixed(2) + '</td></tr>';
+                    tableBody.append(entryString);
+                    if (i == 0) lowestSell = price;
+                }
+                updateFormIfBetter("BUY", highestBuy);
+                updateFormIfBetter("SELL", lowestSell);
             }
+        });
+
+        $.get("https://kiwi-coin.com/api/order_book/", function(data, status) {
+            if (status !== "success") {
+                return;
+            }
+            var buyData = data.bids;
+            var sellData = data.asks;
+
+            var tableBody = $('#kiwicoin-rows');
+            tableBody.empty();
+            var accumulateBuy = 0;
+            var accumulateSell = 0;
+            var accumString = '';
+            var highestBuy, lowestSell;
+
+            for (var i = 0; i < 5; i++) {
+                var type, price, volume, total;
+                var entry = buyData[i];
+                price = entry[0];
+                volume = entry[1];
+                total = price * volume;
+                accumulateBuy += total;
+                rowWithClass = '<tr class="table-info">' 
+                var entryString =  rowWithClass +                    
+                    '<td>' + Number(price).toFixed(2) + '</td>' +
+                    '<td>' + Number(volume).toFixed(6) + '</td>' +
+                    '<td>' + Number(price * volume).toFixed(2) + '</td>' + 
+                    '<td>' + Number(accumulateBuy).toFixed(2) + '</td></tr>';
+                accumString = entryString + accumString;
+                if (i == 0) highestBuy = price;
+            }
+            tableBody.append(accumString);
+
+            for (var i = 0; i < 5; i++) {
+                var type, price, volume, total;
+                var entry = sellData[i];
+                price = entry[0];
+                volume = entry[1];
+                total = price * volume;
+                accumulateSell += total;
+                rowWithClass = '<tr class="table-warning">' 
+                var entryString =  rowWithClass +                    
+                    '<td>' + Number(price).toFixed(2) + '</td>' +
+                    '<td>' + Number(volume).toFixed(6) + '</td>' +
+                    '<td>' + Number(price * volume).toFixed(2) + '</td>' + 
+                    '<td>' + Number(accumulateSell).toFixed(2) + '</td></tr>';
+                tableBody.append(entryString);
+                if (i == 0) lowestSell = price;
+            }
+
+            updateFormIfBetter("BUY", highestBuy);
+            updateFormIfBetter("SELL", lowestSell);
         });
     });
 
-    var refreshDataFunc = function() {
-       $("#refreshData").trigger('click');
-    }
-    setTimeout(refreshDataFunc, 50);
-
-    refreshDataFunc();
-
+    $("#refreshPrices").trigger('click');
     var calculateProfit = function() {        
         var boughtAt = Number($('#boughtAt').val());
         var soldAt = Number($('#soldAt').val());
         var amount = Number($('#amount').val());
         var profitDollar = $('#profitDollar');
         var profitPercentage = $('#profitPercentage');
+        var profitDisplay = $('#profitDisplay');
 
         if (boughtAt * soldAt * amount === 0) return;
         var bitAmount = (amount / boughtAt);
         var moneyOut = bitAmount * soldAt;
         profitDollar.val(Number(moneyOut - amount).toFixed(2));
         profitPercentage.val(Number((moneyOut - amount) / amount * 100).toFixed(2));
+        profitDisplay.text(Number((moneyOut - amount) / amount * 100).toFixed(2));
+        document.title = "Earn " + Number((moneyOut - amount) / amount * 100).toFixed(2) + "%";
     }
 
     $('#calculatorForm :input').change(calculateProfit);
+
+    $("#cryptopiaTable, #kiwicoinTable").on("click", "tr", function() {
+        var price = this.cells[0].innerHTML;
+        var priceType = this.className === "table-info" ? "BUY" : "SELL";
+        if (priceType === "BUY") {
+            $('#boughtAt').val(Number(price).toFixed(2));
+        } else {
+            $('#soldAt').val(Number(price).toFixed(2));
+        }
+        calculateProfit();
+   });
+
+    function updateFormIfBetter(priceType, price) {
+        if (priceType === "BUY") {
+            if (price < ($('#boughtAt').val() || Number.MAX_VALUE)) {
+                $('#boughtAt').val(Number(price).toFixed(2));
+            }
+        } else {
+            if (price > ($('#soldAt').val() || Number.MIN_VALUE)) {
+                $('#soldAt').val(Number(price).toFixed(2));   
+            }
+        }
+        calculateProfit();
+    }
 });
 </script>
 </head>
@@ -70,20 +179,21 @@ $(document).ready(function(){
     
     <div class="page-header">
         <h1>
-            <a class="btn btn-lg btn-info" href="#" role="button" id="refreshData">⟳ Bitcoin Prices</a>
+            <a class="btn btn-lg btn-info" href="#" role="button" id="refreshPrices">⟳ Refresh Prices</a>
+            <span>Potential Profit: <span id="profitDisplay">0</span>%</span>
         </h1>
     </div>
 
     <div class="row">
         <div class="col-lg-6">
             <h4>Cryptopia</h4>
-            <table class="table table-hover">
+            <table class="table table-hover" id="cryptopiaTable">
                 <thead>
                     <tr>
-                        <th>Trade</th>
                         <th>Price ($NZD)</th>
                         <th>Volume (Ƀ)</th>
                         <th class="text-right">Total ($NZD)</th>
+                        <th>Total (Accum)</th>
                     </tr>
                 </thead>
                 <tbody id="cryptopia-rows">
@@ -112,7 +222,7 @@ $(document).ready(function(){
                         <div class="form-group row">
                             <label for="amount" class="col-sm-5 col-form-label">Amount ($ NZ)</label>
                             <div class="col-sm-7">
-                                <input type="number" class="form-control" id="amount" placeholder="500" step="any">
+                                <input type="number" class="form-control" id="amount" placeholder="500" step="any" value="1000.00">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -132,35 +242,28 @@ $(document).ready(function(){
                 
             </div>
         </div>
-
         <div class="col-lg-6">
-            <h4>Prices</h4>
-            <div class="row">
-                <div class="col-lg-8">
-                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="bitcoin" data-base="NZD" data-secondary="USD" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
-                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="ethereum" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
-                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="litecoin" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
-                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="monero" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
-                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="iota" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
-                    
-                </div>
-                <div class="col-lg-4">
-                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="dash" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
-                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="zcash" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
-                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="nem" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
-                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="nav-coin" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
-                    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="gaycoin" data-base="NZD" data-secondary="BTC" data-ticker="true" data-rank="false" data-marketcap="false" data-volume="false" data-stats="USD" data-statsticker="false"></div>
-                </div>
-            </div>
-            </div>
-            
-    </div>
-    
-    
+            <h4>KiwiCoin</h4>
+            <table class="table table-hover" id="kiwicoinTable">
+                <thead>
+                    <tr>                        
+                        <th>Price ($NZD)</th>
+                        <th>Volume (Ƀ)</th>
+                        <th class="text-right">Total ($NZD)</th>
+                        <th>Total (Accum)</th>
+                    </tr>
+                </thead>
+                <tbody id="kiwicoin-rows">
+                    <tr>
+                        <td colspan="4">Loading ... </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>            
+    </div>    
 </main>
-
 <footer class="footer">
-    <p>© Pheng Taing 2017</p>
+    <p>© Pheng Taing 2017-18</p>
 </footer>
 
 </div>
