@@ -154,6 +154,20 @@ a:active {
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
+
+  --offset: 400px;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/spectrum.svg);
+  background-repeat: repeat-x;
+  background-size: 100vw 0.1em;
+  background-position: left bottom 1px; 
+  background-position-x: var(--scrollPos);
+  &:nth-of-type(2) {
+    background-position-x: calc(var(--offset) + var(--scrollPos));
+  }
+
+}
+h1.page-header {
+  background-image: none;
 }
 
 h2 {

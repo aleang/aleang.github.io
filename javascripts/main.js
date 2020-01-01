@@ -51,3 +51,12 @@ fixScale = function(doc) {
     doc[addEvent](type, fix, true);
   }
 };
+
+// scrolling rainbow from https://css-tricks.com/moving-rainbow-underlines/ tutorial
+window.addEventListener("scroll", e => {
+  let scrollTop = document.body.scrollTop ? document.body.scrollTop : document.documentElement.scrollTop; 
+  let newPos = scrollTop + "px";
+  document.documentElement.style.setProperty('--scrollPos', newPos);
+});
+
+
