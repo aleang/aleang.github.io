@@ -188,6 +188,7 @@ What are you doing here?
     <img id="main-screen" src="https://j.gifs.com/L7pGpX.gif">
 
     <p id="message-box">
+        Please set your VOLUME to 50-70%<br>
         Looking for the remote... <span id="delay-excuses">it was here just before</span>
     </p>
 </div>
@@ -234,6 +235,7 @@ What are you doing here?
         userMessage.innerHTML = '';
     }, 10000);
     function booHim() {
+        boo.volume = 0.3;
         boo.play();
         setTimeout(function() {
             const green = document.getElementById('gBtn');
@@ -243,7 +245,8 @@ What are you doing here?
     function getOff() {
         const green = document.getElementById('gBtn');
         if (!green.classList.contains('show-button')) return;
-
+        longBoo.volume = 0.3;
+        getOffTheStage.volume = 0.5;
         longBoo.play();
         getOffTheStage.play();
 
@@ -259,6 +262,7 @@ What are you doing here?
         setTimeout(function(){ 
             const mainScreen = document.getElementById('main-screen');
             mainScreen.setAttribute('src', rescue);
+            boohoo.volume = 0.5;
             boohoo.play();
         }, 2000);
 
