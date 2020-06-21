@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pedalling Contineuts Blog Quiz</title>
+        
+        <style>
+            body {
+                background-color: #fafafa;
+                font-family: 'Aveny';
+            }
+            @font-face {
+                font-family: "Aveny"; 
+                src: url("https://db.onlinewebfonts.com/t/6cdc4cc6b38c8e89e8721abe8aed4ab9.eot");
+                src: url("https://db.onlinewebfonts.com/t/6cdc4cc6b38c8e89e8721abe8aed4ab9.eot?#iefix") format("embedded-opentype"),
+                    url("https://db.onlinewebfonts.com/t/6cdc4cc6b38c8e89e8721abe8aed4ab9.woff2") format("woff2"),
+                    url("https://db.onlinewebfonts.com/t/6cdc4cc6b38c8e89e8721abe8aed4ab9.woff") format("woff"),
+                    url("https://db.onlinewebfonts.com/t/6cdc4cc6b38c8e89e8721abe8aed4ab9.ttf") format("truetype"),
+                    url("https://db.onlinewebfonts.com/t/6cdc4cc6b38c8e89e8721abe8aed4ab9.svg#Aveny T WEB") format("svg"); 
+            }
+            /* width */
+            ::-webkit-scrollbar {
+                width: 5px;
+                height: 5px;
+            }
+
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: rgb(180, 180, 180); 
+                border-radius: 5px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: rgb(129, 129, 129);
+                width: 10px;
+                height: 10px;
+            }
+
+            #container {
+                display: flex;
+                max-height: 95vh;
+                overflow: scroll;
+                margin: 0 auto;
+                max-width: fit-content;
+            }
+            #tv {
+                flex-grow: 1;
+            }
+            #tv iframe {
+                margin: 0;
+                position: relative;
+                top: 50%;
+                -ms-transform: translate(0, -50%);
+                transform: translate(0, -50%);
+            }
+            #main {
+                max-width: 500px;
+                background: white;
+                margin: 0 auto;
+                text-align: center;
+                padding: 5px;
+                border-radius: 10px;
+                display: flex;
+                flex-grow: 2;
+                flex-direction: column;
+            }
+            #main h1 {
+                font-weight: 500;
+                flex-grow: 1;
+            }
+            #main h1 .condense {
+                letter-spacing: -2px;
+            }
+            #selection {
+                white-space: nowrap;
+                overflow: scroll;
+                min-height: 100px;
+                height: 100px;
+                max-height: 100px;
+                padding: 0 10px;
+                overflow-y: hidden;
+                flex-grow: 1;
+            }
+            #selection .story-button {
+                width: 77px;
+                height: 77px;
+                font-size: 20px;
+                white-space: pre-wrap;
+                background: #efefef;
+                border: 3px solid white;
+                outline: none;
+                display: inline-block;
+                position: relative;
+                flex-direction: column;
+                border-radius: 100px;
+                margin-right: 10px;
+                box-shadow: #c8c8c8 2px 2px 2px 0px, #f5f5f5 -1px -1px 2px 0px, inset #ebebeb 1px 1px 2px 0px;
+                transition: 0.2s ease;
+            }
+            #selection .story-button:hover {
+                background-color: white;
+                box-shadow: #c8c8c8 2px 2px 2px 0px,
+                    #f5f5f5 -1px -1px 2px 0px,
+                    inset #ebebeb 1px 1px 2px 0px;
+            }
+            #selection .story-button span {
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+            #selection .story-button.small {
+                font-size: 17px;
+            }
+            #quiz-box {
+                flex-grow: 2;
+                overflow: auto;
+            }
+            #quiz-box .quiz {
+                margin: 30px;
+                
+                padding: 20px;
+                border-radius: 20px;
+            }
+            #quiz-box .quiz.correct, #quiz-box .quiz.incorrect {
+                padding-bottom: 0;
+            }
+            #quiz-box .quiz.correct::after, #quiz-box .quiz.incorrect::after {
+                line-height: 22px;
+                margin: 0 auto;
+                padding: 1px 10px;
+                display: block;
+                font-size: 14px;
+                height: 18px;
+                width: fit-content;
+                z-index: 1;
+                border-radius: 0 0 5px 5px;
+            }
+            #quiz-box .quiz.correct::after {
+                background: #d4e6f5;
+                content: '✅ Correct!';
+            }
+            #quiz-box .quiz.incorrect::after {
+                background: #cfcfcf;
+                content: '❎ Nope, sorry';                
+            }
+            #quiz-box .question-text {
+                margin-bottom: 10px;
+                display: block;
+            }
+            #quiz-box .answer-tab {
+                display: flex;
+                width: 200px;
+                height: 50px;
+                margin: 0 auto;
+                font-size: 20px;
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: #c8c8c8 2px 2px 2px 0px, #f5f5f5 -1px -1px 2px 0px;
+                cursor: pointer;
+                z-index: 2;
+                position: relative;
+            }
+            #quiz-box .answer-left, #quiz-box .answer-right {
+                flex-basis: 0;
+                border: 1px solid grey;
+                flex-direction: column;
+                display: flex;
+                transition: 1s ease-in;
+            }
+            
+            #quiz-box .answer-left:hover, #quiz-box .answer-right:hover {
+                box-shadow: inset 0px 3px 3px #eaeaea, inset 0px -6px 6px #f1f1f1;
+            }
+            #quiz-box .answer-left.disabled:hover, #quiz-box .answer-right.disabled:hover {
+                box-shadow: none;
+                cursor: default;
+            }
+            #quiz-box .answer-left {
+                flex-grow: 1;
+                border-radius: 10px 0 0 10px;
+                border-right: none;
+                color: rgb(1,186,251);
+                background: -webkit-linear-gradient(0deg, #04bafa, #12c8a4, #25d936);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            #quiz-box .answer-right {
+                flex-grow: 1;
+                border-radius: 0 10px 10px 0;
+                border-left: none;                
+                color: rgb(253,100,110);                
+                background: -webkit-linear-gradient(0deg, #fb894c, #fd686a, #ff58a2);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                
+            }
+            #quiz-box .answer-tab > .revealed {
+                color: white;
+                -webkit-background-clip: border-box;
+                -webkit-text-fill-color: #ffffff;
+            }
+            /* #quiz-box .answer-tab > .revealed.disabled:hover {
+                box-shadow: none;
+            } */
+            .answer-text {
+                margin: auto;
+            }
+            .answer-percentage::after {
+                content: '%';
+            }
+            .answer-percentage.hide {
+                display: none
+            }
+            p.score {
+                border-top: 2px grey dashed;
+                padding-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="main">
+                <h1>
+                    <span class="condense">Pedalling Continents</span>
+                    Blog Quiz
+                </h1>
+                <div id="selection">
+                    <div class="story-button" onclick="openQuizSet('EastAsia')"><span>East Asia</span></div>
+                    <div class="story-button" onclick="openQuizSet('CentralAsia')"><span>Central Asia</span></div>
+                    <div class="story-button" onclick="openQuizSet('Iran')"><span>Iran</span></div>
+                    <div class="story-button small" onclick="openQuizSet('KurdistanTurkey')"><span>Kurdistan Turkey</span></div>
+                    <div class="story-button small" onclick="openQuizSet('KurdistanTurkey')"><span>Kurdistan Turkey</span></div>
+                    <div class="story-button small" onclick="openQuizSet('KurdistanTurkey')"><span>Kurdistan Turkey</span></div>
+                    <div class="story-button small" onclick="openQuizSet('KurdistanTurkey')"><span>Kurdistan Turkey</span></div>
+                </div>
+                <div id="quiz-box">
+                    <div id="EastAsia" class="quizset">
+                        
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            <div id="tv">
+                <iframe height="560" width="315" src="https://www.youtube.com/embed/iYAiIpnRRBU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+        <script>
+            
+            const correct = '#90caf9';
+            const incorrect = '#f48fb1';
+            const QnA = {
+                EastAsia: {
+                    displayName: 'East Asia',
+                    questions: [
+                        [
+                            'Which was more dangerous?',
+                            'Camp', 'Ride', 50
+                        ], [
+                            'How many pictured here are of Chinese descent?',
+                            '3', '4', 57
+                        ], [
+                            'What happened here?',
+                            'Mud', 'Blood', 71
+                        ], [
+                            'To eat or not to eat...',
+                            'Food', 'Not Food', 55
+                        ], [
+                            'What is the temperature?',
+                            '-3°C', '3°C', 81
+                        ], [
+                            'What language is this?',
+                            'Tibetan', 'Mongolian', 52
+                        ], [
+                            'What is on top of that hill?',
+                            'Wall', 'Castle', 46
+                        ], [
+                            'Which mushroom did we eat?',
+                            'That', 'This', 41
+                        ], [
+                            'Where did we found all these puffy bags of chips?',
+                            'Beijing', 'Xining', 43
+                        ], [
+                            'Why are we hiding under here?',
+                            'Weather', 'Police', 55
+                        ], [
+                            'All this for ...?',
+                            'Less', 'More', 76
+                        ], [
+                            'What are these 3 lads up to?',
+                            'Spy', 'Guard', 27
+                        ]
+                    ],
+                    answers: (2184).toString(2).padStart(12, '0')
+                }
+            }
+
+            function submitAnswer(quizSet, thisElement, questionNumber, answer) {
+                let answerLeft = thisElement.parentElement.getElementsByClassName('answer-left')[0];
+                let answerRight = thisElement.parentElement.getElementsByClassName('answer-right')[0];
+                let percentages = thisElement.parentElement.getElementsByClassName('hide');
+
+                // update left answer button
+                answerLeft.onclick = null;
+                answerLeft.classList.add('disabled');
+                answerLeft.style.flexGrow = percentages[0].innerHTML;
+                // update right answer button
+                answerRight.onclick = null;
+                answerRight.classList.add('disabled');
+                answerRight.style.flexGrow = percentages[1].innerHTML;
+                // reveal percentages
+                thisElement.parentElement.getElementsByClassName('hide')[0].classList.remove('hide');
+                thisElement.parentElement.getElementsByClassName('hide')[0].classList.remove('hide');
+                // display full colour of selected answer
+                thisElement.classList.add('revealed');
+                // reveal if they're correct or wrong
+                // thisElement.parentElement.parentElement.style.backgroundColor = 
+                //     QnA[quizSet].answers[questionNumber] === String(answer) ?
+                //     correct : incorrect;
+
+                thisElement.parentElement.parentElement.classList.add( 
+                    QnA[quizSet].answers[questionNumber] === String(answer) ?
+                    'correct' : 'incorrect');
+
+                // update score counter
+                let quizNodes = document.getElementsByClassName('correct');
+                document.getElementById('score-' + quizSet).innerHTML = 'You got ' + quizNodes.length + ' out of 12 correct.';
+            }
+
+            function openQuizSet(quizSetName) {
+                var i;
+                var x = document.getElementsByClassName("quizset");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                    x[i].innerHTML = '';
+                }
+                document.getElementById(quizSetName).style.display = "block";
+                document.getElementById(quizSetName).insertAdjacentHTML('beforeend',
+                    '<div id="quiz-' + quizSetName + '"><h2>' + QnA[quizSetName].displayName + '</h2></div>'
+                );
+                
+                let container = document.getElementById('quiz-' + quizSetName);
+                for (i = 0; i < QnA[quizSetName].questions.length; i++) {
+                    let q = QnA[quizSetName].questions[i];
+
+                    container.insertAdjacentHTML('beforeend', 
+                        '<div class="quiz"><span class="question-text">' +
+                            q[0] +
+                            '</span><div class="answer-tab">' +
+                            '<span class="answer-left" onclick="submitAnswer(\'' + quizSetName + '\', this, ' + i + ', 0)">' +
+                                '<span class="answer-text">' + q[1] + '</span>' +
+                                '<span class="answer-percentage hide">' + q[3] + '</span></span>' +
+                            '<span class="answer-right" onclick="submitAnswer(\'' + quizSetName + '\', this, ' + i + ', 1)">' +
+                                '<span class="answer-text">' + q[2] + '</span>' +
+                                '<span class="answer-percentage hide">' + (100-q[3]) + '</span></span>' +
+                            '</div></div>'
+                    );
+
+                    
+                }
+                container.insertAdjacentHTML('beforeend',
+                        '<p class="score" id="score-' + quizSetName + '"></p>'
+                );
+            }
+            openQuizSet('EastAsia');
+        </script>
+    </body>
+</html>
