@@ -121,13 +121,13 @@ What are you doing here?
     ];
 
     function checkText(e) {
-        console.log(e.keyCode, String.fromCharCode(e.keyCode));
+        // console.log(e.keyCode, String.fromCharCode(e.keyCode));
         if (e.keyCode === 46) {
             // press . means clear secret
             secretValue = '';
             secretMode = false;
-        } else if (e.keyCode === 13 || e.keyCode === 63) {
-            // press Enter or ?
+        } else if (e.keyCode === 63) {
+            // press ?
             document.activeElement = document;
             tb.classList.add('appear-now');
             document.getElementById('answer-textfield').innerHTML = 'Thinking...';
@@ -180,7 +180,7 @@ What are you doing here?
         if (covertIndex >= covertString.length) {
             secretMode = false;
         }
-        console.log('Secret: ', secretValue);
+        // console.log('Secret: ', secretValue);
     }
 </script>
 </body>
