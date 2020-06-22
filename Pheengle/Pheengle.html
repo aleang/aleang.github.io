@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="spinkit.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pheengle Search</title>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: rgb(250,250,250);
+    }
+    h1 {
+        text-align: center;
+    }
+    .search img {
+        margin: 0 auto;
+        display: block;
+    }
+    .search input {
+        padding: 10px 10px 10px 30px;
+        font-size: 16px;
+        border-radius: 100px;
+        background: #fff;
+        display: flex;
+        border: 1px solid #dfe1e5;
+        box-shadow: none;
+        height: 44px;
+        margin: 0 auto;
+        width: 482px;
+    }
+    .search input:focus {
+        outline: none;
+    }
+
+    .search input:hover {
+        box-shadow: 0 1px 6px 0 rgba(32,33,36,0.28);
+        border-color: rgba(223,225,229,0);
+    }
+
+    #thinking-box {
+        width: 482px;
+        margin: 20px auto 0 auto;
+        display: flex;
+        opacity: 0;
+    }
+    .response {
+        margin-left: 20px;
+        line-height: 40px;
+    }
+    .slidecontainer {
+        width: 50%;
+        margin: 15% auto 0 auto;
+        padding: 20px;
+        border-radius: 10px;
+        opacity: 0.92;
+        position: relative;
+        z-index: 1
+    }
+
+    .appear-now {
+        animation: showMe 2s ease-in forwards;
+
+    }
+    @keyframes showMe {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+</style>
+</head>
+<body>
+    <!-- 
+                           ,;,,;'
+                      ,;;'(
+           __       ,;;' ' \
+         /'  '\'~~'~' \ /'\.)
+      ,;(      )    /  |.
+     ,;' \    /-.,,(   ) \
+          ) /       ) / )|
+          ||        ||  \)
+          (_\       (_\
+What are you doing here?
+ -->
+
+<div class="slidecontainer search">
+    <img src="logo.png" alt="Pheengle" width="272">
+    <input id="bigbox" type="text" placeholder="Hey Pheengle, what is ..." onkeypress="checkText(event)" onfocus="hideThinking()">
+    <div id="thinking-box">
+        <div class="sk-pulse"></div>
+        <span class="response" id="answer-textfield">Thinking...</span>
+    </div>
+</div>
+<script>
+    let secretMode = false;
+    let bb = document.getElementById("bigbox");
+    let tb = document.getElementById("thinking-box");
+    let searchValue = "";
+    let secretValue = "";
+
+    let covertString = "Hey Pheeeeeeeeengle, ";
+    let covertIndex = -1;
+    function hideThinking() {
+        tb.classList.remove('appear-now');
+    }
+
+    const sassyResponse = [
+        'Have you heard of the Internet?',
+        'There is Google, you know?',
+        'I\'m not quite sure. Ask Jeeves?',
+        'The answer is 42. Haha!',
+        'Is that even a real question?',
+        'I\'ve seen more intelligent goldfish than your question.',
+        'Your question isn\'t perfect, but your answer can be.',
+    ];
+
+    const fancyResponse = [
+        'Could it be...',
+        'Maybe the answer is...',
+        'Perhaps...',
+        'I\'m certain it may be...',
+    ];
+
+    function checkText(e) {
+        console.log(e.keyCode, String.fromCharCode(e.keyCode));
+        if (e.keyCode === 46) {
+            // press . means clear secret
+            secretValue = '';
+            secretMode = false;
+        } else if (e.keyCode === 13 || e.keyCode === 63) {
+            // press Enter or ?
+            document.activeElement = document;
+            tb.classList.add('appear-now');
+            document.getElementById('answer-textfield').innerHTML = 'Thinking...';
+
+            setTimeout(function() {
+                if (secretValue.length > 0) {
+                    secretValue = secretValue.charAt(0).toUpperCase() + secretValue.slice(1);
+                    document.getElementById('answer-textfield').innerHTML = `${fancyResponse[Math.floor(Math.random()*4)]} ${secretValue.trim()}?`;
+                } else {
+                    document.getElementById('answer-textfield').innerHTML = sassyResponse[Math.floor(Math.random()*4)];
+                }
+                
+                covertIndex = -1;
+                secretValue = "";
+                bb.value = "";
+                document.getElementById('bigbox').blur();
+            }, 3000 + Math.floor(Math.random()*1000));
+
+            return;
+        } else if (e.keyCode === 59) {
+            secretMode = !secretMode;
+
+            if (secretMode) {
+                // start 
+                covertIndex = bb.value.length;
+                searchValue = bb.value;
+                
+                if (covertIndex >= covertString.length) secretMode = false;
+            } else {
+                // end
+            }
+
+            if (covertIndex >= covertString.length) {
+                searchValue += String.fromCharCode(e.keyCode);
+            } else {
+                searchValue += covertString[covertIndex++];
+            }
+            bb.value = searchValue;
+            e.preventDefault();
+            return;
+        }
+
+        if (secretMode) {
+            searchValue += covertString[covertIndex++];
+            secretValue += String.fromCharCode(e.keyCode);
+            bb.value = searchValue;
+            e.preventDefault();
+        } 
+        
+        if (covertIndex >= covertString.length) {
+            secretMode = false;
+        }
+        console.log('Secret: ', secretValue);
+    }
+</script>
+</body>
+</html>
