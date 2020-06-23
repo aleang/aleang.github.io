@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Pedalling Contineuts Blog Quiz</title>
+        <title>Pedalling Continents Blog Quiz</title>
         
         <style>
             body {
-                background-color: #fafafa;
+                background-color: black;
                 font-family: 'Aveny';
             }
             @font-face {
@@ -38,7 +38,7 @@
             #container {
                 display: flex;
                 max-height: 95vh;
-                overflow: scroll;
+                overflow: hidden;
                 margin: 0 auto;
                 max-width: fit-content;
             }
@@ -51,6 +51,7 @@
                 top: 50%;
                 -ms-transform: translate(0, -50%);
                 transform: translate(0, -50%);
+                border-radius: 0 20px 20px 0;
             }
             #main {
                 max-width: 500px;
@@ -63,11 +64,11 @@
                 flex-grow: 2;
                 flex-direction: column;
             }
-            #main h1 {
+            #main h2 {
                 font-weight: 500;
                 flex-grow: 1;
             }
-            #main h1 .condense {
+            #main h2 .condense {
                 letter-spacing: -2px;
             }
             #selection {
@@ -77,6 +78,7 @@
                 height: 100px;
                 max-height: 100px;
                 padding: 0 10px;
+                margin: 0 20px;
                 overflow-y: hidden;
                 flex-grow: 1;
             }
@@ -95,6 +97,7 @@
                 margin-right: 10px;
                 box-shadow: #c8c8c8 2px 2px 2px 0px, #f5f5f5 -1px -1px 2px 0px, inset #ebebeb 1px 1px 2px 0px;
                 transition: 0.2s ease;
+                cursor: pointer;
             }
             #selection .story-button:hover {
                 background-color: white;
@@ -143,7 +146,7 @@
                 color: green;
             }
             #quiz-box .quiz.incorrect::after {
-                background: #cfcfcf;
+                background: #ffeded;
                 content: '✘ Nope, sorry';       
                 color: red;         
             }
@@ -163,15 +166,19 @@
                 cursor: pointer;
                 z-index: 2;
                 position: relative;
+                
             }
             #quiz-box .answer-left, #quiz-box .answer-right {
                 flex-basis: 0;
                 border: 1px solid grey;
                 flex-direction: column;
                 display: flex;
-                transition: 1s ease-in;
+                transition: 0.5s ease-in;
             }
-            
+            #quiz-box .answer-left.squeeze, #quiz-box .answer-right.squeeze {
+                line-height: 12px;
+                font-size: 12px;
+            }
             #quiz-box .answer-left:hover, #quiz-box .answer-right:hover {
                 box-shadow: inset 0px 3px 3px #eaeaea, inset 0px -6px 6px #f1f1f1;
             }
@@ -224,29 +231,23 @@
     <body>
         <div id="container">
             <div id="main">
-                <h1>
+                <h2>
                     <span class="condense">Pedalling Continents</span>
                     Blog Quiz
-                </h1>
+                </h2>
                 <div id="selection">
                     <div class="story-button" onclick="openQuizSet('EastAsia')"><span>East Asia</span></div>
-                    <div class="story-button" onclick="openQuizSet('CentralAsia')"><span>Central Asia</span></div>
+                    <div class="story-button small" onclick="openQuizSet('CentralAsia')"><span>Central Asia</span></div>
                     <div class="story-button" onclick="openQuizSet('Iran')"><span>Iran</span></div>
                     <div class="story-button small" onclick="openQuizSet('KurdistanTurkey')"><span>Kurdistan Turkey</span></div>
-                    <div class="story-button small" onclick="openQuizSet('KurdistanTurkey')"><span>Kurdistan Turkey</span></div>
-                    <div class="story-button small" onclick="openQuizSet('KurdistanTurkey')"><span>Kurdistan Turkey</span></div>
-                    <div class="story-button small" onclick="openQuizSet('KurdistanTurkey')"><span>Kurdistan Turkey</span></div>
+                    <div class="story-button" onclick="openQuizSet('Balkans')"><span>Balkans</span></div>
+                    <div class="story-button small" onclick="openQuizSet('ItalyFrance')"><span>Italy France</span></div>
+                    <div class="story-button small" onclick="openQuizSet('SpainPortugal')"><span>Spain Portugal</span></div>
                 </div>
-                <div id="quiz-box">
-                    <div id="EastAsia" class="quizset">
-                        
-                    </div>
-                    
-                    
-                </div>
+                <div id="quiz-box"></div>
             </div>
             <div id="tv">
-                <iframe height="560" width="315" src="https://www.youtube.com/embed/iYAiIpnRRBU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe id="youtube-iframe" height="560" width="315" src="https://www.youtube.com/embed/iYAiIpnRRBU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
         <script>
@@ -295,10 +296,56 @@
                             'Spy', 'Guard', 27
                         ]
                     ],
-                    answers: (2184).toString(2).padStart(12, '0')
+                    answers: (2184).toString(2).padStart(12, '0'),
+                    youtube: 'y2bDXRViSpY'
+                },
+                CentralAsia: {
+                    displayName: 'Central Asia',
+                    questions: [
+                        [
+                            'How many letters are here?',
+                            '6', '7', 75
+                        ], [
+                            'Where is the window?',
+                            'Roof', 'Wall', 82 
+                        ], [
+                            'Did we managed to get water?',
+                            'Yes', 'No', 88 
+                        ], [
+                            'Which animal poop did we use?',
+                            'Cow', 'Horse', 39 
+                        ], [
+                            'Which country is shaped like this?',
+                            'Tajikistan', 'Kazahkstan', 59
+                        ], [
+                            'Why did we camp here for 4 nights?',
+                            'Toilet issue', 'Stargazing', 30
+                        ], [
+                            'What are we looking for?',
+                            'Petroglyphs', 'Fossil', 54 
+                        ], [
+                            'What was this statue for?',
+                            'Competition', 'Memorial', 51
+                        ], [
+                            'Why are we celebrating?',
+                            'Good Road', 'Found Money', 87
+                        ], [
+                            'This teahouse was close to being ___',
+                            'Demolition', 'Fire', 61
+                        ], [
+                            'What is cooking?',
+                            'Bread', 'Donut', 88
+                        ], [
+                            'Is this natural?',
+                            '✔️', '❌', 88
+                        ]
+                    ],
+                    answers: (272).toString(2).padStart(12, '0'),
+                    youtube: 'to5nD6qASPY'
                 }
-            }
 
+            }
+            
             function submitAnswer(quizSet, thisElement, questionNumber, answer) {
                 let answerLeft = thisElement.parentElement.getElementsByClassName('answer-left')[0];
                 let answerRight = thisElement.parentElement.getElementsByClassName('answer-right')[0];
@@ -307,10 +354,16 @@
                 // update left answer button
                 answerLeft.onclick = null;
                 answerLeft.classList.add('disabled');
+                if (shouldSqueeze(QnA[quizSet].questions[questionNumber], true)) {
+                    answerLeft.classList.add('squeeze');
+                }
                 answerLeft.style.flexGrow = percentages[0].innerHTML;
                 // update right answer button
                 answerRight.onclick = null;
                 answerRight.classList.add('disabled');
+                if (shouldSqueeze(QnA[quizSet].questions[questionNumber], false)) {
+                    answerRight.classList.add('squeeze');
+                }
                 answerRight.style.flexGrow = percentages[1].innerHTML;
                 // reveal percentages
                 thisElement.parentElement.getElementsByClassName('hide')[0].classList.remove('hide');
@@ -333,14 +386,16 @@
 
             function openQuizSet(quizSetName) {
                 var i;
-                var x = document.getElementsByClassName("quizset");
-                for (i = 0; i < x.length; i++) {
-                    x[i].style.display = "none";
-                    x[i].innerHTML = '';
-                }
+
+                let quizBox = document.getElementById('quiz-box');
+                quizBox.innerHTML = '';
+                quizBox.insertAdjacentHTML('beforeend', 
+                    '<div id="' + quizSetName + '" class="quizset"></div>'
+                );
+
                 document.getElementById(quizSetName).style.display = "block";
                 document.getElementById(quizSetName).insertAdjacentHTML('beforeend',
-                    '<div id="quiz-' + quizSetName + '"><h2>' + QnA[quizSetName].displayName + '</h2></div>'
+                    '<div id="quiz-' + quizSetName + '"><h3>' + QnA[quizSetName].displayName + '</h3></div>'
                 );
                 
                 let container = document.getElementById('quiz-' + quizSetName);
@@ -365,7 +420,22 @@
                 container.insertAdjacentHTML('beforeend',
                         '<p class="score" id="score-' + quizSetName + '"></p>'
                 );
+                document.getElementById('youtube-iframe').src = 'https://www.youtube.com/embed/' + QnA[quizSetName].youtube;
             }
+
+            function shouldSqueeze(questionObj, left) {
+                let answer, width;
+                if (left) {
+                    answer = questionObj[1];
+                    width = questionObj[3];
+                } else {
+                    answer = questionObj[2];
+                    width = 100 - questionObj[3];
+                }
+                // squeeze ratio
+                return answer.length/width >= 0.25 && width < 35;
+            }
+
             openQuizSet('EastAsia');
         </script>
     </body>
