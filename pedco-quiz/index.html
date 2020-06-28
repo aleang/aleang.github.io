@@ -25,12 +25,12 @@
 
             /* Handle */
             ::-webkit-scrollbar-thumb {
-                background: rgb(180, 180, 180); 
+                background: black;
                 border-radius: 5px;
             }
 
             ::-webkit-scrollbar-thumb:hover {
-                background: rgb(129, 129, 129);
+                background: black;
                 width: 10px;
                 height: 10px;
             }
@@ -55,7 +55,6 @@
             }
             #main {
                 max-width: 500px;
-                background: white;
                 margin: 0 auto;
                 text-align: center;
                 padding: 5px;
@@ -78,11 +77,11 @@
                 height: 100px;
                 max-height: 100px;
                 padding: 0 10px;
-                margin: 0 20px;
+                margin: 0 20px 20px 20px;
                 overflow-y: hidden;
                 flex-grow: 1;
             }
-            #selection .story-button {
+            .story-button {
                 width: 77px;
                 height: 77px;
                 font-size: 20px;
@@ -99,13 +98,13 @@
                 transition: 0.2s ease;
                 cursor: pointer;
             }
-            #selection .story-button:hover {
+            .story-button:hover {
                 background-color: white;
                 box-shadow: #c8c8c8 2px 2px 2px 0px,
                     #f5f5f5 -1px -1px 2px 0px,
                     inset #ebebeb 1px 1px 2px 0px;
             }
-            #selection .story-button span {
+            .story-button span {
                 margin: 0;
                 position: absolute;
                 top: 50%;
@@ -113,7 +112,7 @@
                 -ms-transform: translate(-50%, -50%);
                 transform: translate(-50%, -50%);
             }
-            #selection .story-button.small {
+            .story-button.small {
                 font-size: 17px;
             }
             #quiz-box {
@@ -173,18 +172,21 @@
                 border: 1px solid grey;
                 flex-direction: column;
                 display: flex;
-                transition: 0.5s ease-in;
+                transition: 0.2s ease-in;
             }
             #quiz-box .answer-left.squeeze, #quiz-box .answer-right.squeeze {
                 line-height: 12px;
                 font-size: 12px;
             }
             #quiz-box .answer-left:hover, #quiz-box .answer-right:hover {
-                box-shadow: inset 0px 3px 3px #eaeaea, inset 0px -6px 6px #f1f1f1;
+                box-shadow: inset 0px 3px 3px #bcbcbc, 
+                    inset 0px -6px 6px #d2d2d2;
+                font-weight: 600;
             }
             #quiz-box .answer-left.disabled:hover, #quiz-box .answer-right.disabled:hover {
                 box-shadow: none;
                 cursor: default;
+                font-weight: 500;
             }
             #quiz-box .answer-left {
                 flex-grow: 1;
@@ -226,6 +228,52 @@
                 border-top: 2px grey dashed;
                 padding-top: 10px;
             }
+            a {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+            .styleEastAsia {
+                background: linear-gradient(45deg, crimson, yellow);   
+            }
+            .styleEastAsia:hover, #main.styleEastAsia {
+                background: linear-gradient(45deg, crimson, orange, yellow);
+            }
+            .styleCentralAsia {
+                background: linear-gradient(45deg, limegreen, #c7ff00);   
+            }
+            .styleCentralAsia:hover, #main.styleCentralAsia {
+                background: linear-gradient(45deg, limegreen, lime, #c7ff00);
+            }
+            .styleIran {
+                background: linear-gradient(45deg, #46a09c, cyan);   
+            }
+            .styleIran:hover {
+                background: linear-gradient(45deg,#46a09c, cyan, aqua);
+            }
+            .styleKurdistanTurkey {
+                background: linear-gradient(45deg, moccasin, gold, yellow);   
+            }
+            .styleKurdistanTurkey:hover {
+                background: linear-gradient(45deg,moccasin, yellow);
+            }
+            .styleBalkans {
+                background: linear-gradient(45deg, mediumorchid, fuchsia);   
+            }
+            .styleBalkans:hover {
+                background: linear-gradient(45deg,mediumorchid, violet, fuchsia);
+            }
+            .styleItalyFrance {
+                background: linear-gradient(45deg, crimson, salmon);   
+            }
+            .styleItalyFrance:hover {
+                background: linear-gradient(45deg, crimson, orangered, salmon);
+            }
+            .styleSpainPortugal {
+                background: linear-gradient(45deg, mediumseagreen, #39ecbd);
+            }
+            .styleSpainPortugal:hover {
+                background: linear-gradient(45deg, mediumseagreen, mediumspringgreen, #39ecbd);
+            }
         </style>
     </head>
     <body>
@@ -236,13 +284,13 @@
                     Blog Quiz
                 </h2>
                 <div id="selection">
-                    <div class="story-button" onclick="openQuizSet('EastAsia')"><span>East Asia</span></div>
-                    <div class="story-button small" onclick="openQuizSet('CentralAsia')"><span>Central Asia</span></div>
-                    <div class="story-button" onclick="openQuizSet('Iran')"><span>Iran</span></div>
-                    <div class="story-button small" onclick="openQuizSet('KurdistanTurkey')"><span>Kurdistan Turkey</span></div>
-                    <div class="story-button" onclick="openQuizSet('Balkans')"><span>Balkans</span></div>
-                    <div class="story-button small" onclick="openQuizSet('ItalyFrance')"><span>Italy France</span></div>
-                    <div class="story-button small" onclick="openQuizSet('SpainPortugal')"><span>Spain Portugal</span></div>
+                    <div class="story-button styleEastAsia" onclick="openQuizSet('EastAsia')"><span>East Asia</span></div>
+                    <div class="story-button styleCentralAsia small" onclick="openQuizSet('CentralAsia')"><span>Central Asia</span></div>
+                    <div class="story-button styleIran" onclick="openQuizSet('Iran')"><span>Iran</span></div>
+                    <div class="story-button styleKurdistanTurkey small" onclick="openQuizSet('KurdistanTurkey')"><span>Kurdistan Turkey</span></div>
+                    <div class="story-button styleBalkans" onclick="openQuizSet('Balkans')"><span>Balkans</span></div>
+                    <div class="story-button styleItalyFrance small" onclick="openQuizSet('ItalyFrance')"><span>Italy France</span></div>
+                    <div class="story-button styleSpainPortugal small" onclick="openQuizSet('SpainPortugal')"><span>Spain Portugal</span></div>
                 </div>
                 <div id="quiz-box"></div>
             </div>
@@ -297,7 +345,7 @@
                         ]
                     ],
                     answers: (2184).toString(2).padStart(12, '0'),
-                    youtube: 'y2bDXRViSpY'
+                    youtube: ['y2bDXRViSpY', 'modaGag7YPU']
                 },
                 CentralAsia: {
                     displayName: 'Central Asia',
@@ -319,10 +367,10 @@
                             'Tajikistan', 'Kazahkstan', 59
                         ], [
                             'Why did we camp here for 4 nights?',
-                            'Toilet issue', 'Stargazing', 30
+                            'Toilet Problem', 'Stargazing', 30
                         ], [
                             'What are we looking for?',
-                            'Petroglyphs', 'Fossil', 54 
+                            'Petroglyphs', 'Fossils', 54 
                         ], [
                             'What was this statue for?',
                             'Competition', 'Memorial', 51
@@ -331,17 +379,17 @@
                             'Good Road', 'Found Money', 87
                         ], [
                             'This teahouse was close to being ___',
-                            'Demolition', 'Fire', 61
+                            'Demolished', 'Burned Down', 61
                         ], [
                             'What is cooking?',
                             'Bread', 'Donut', 88
                         ], [
                             'Is this natural?',
-                            '✔️', '❌', 88
-                        ]
+                            'Yes', 'No', 88
+                        ],
                     ],
                     answers: (272).toString(2).padStart(12, '0'),
-                    youtube: 'to5nD6qASPY'
+                    youtube: ['to5nD6qASPY', 'WRKKH0CWv34']
                 }
 
             }
@@ -387,6 +435,10 @@
             function openQuizSet(quizSetName) {
                 var i;
 
+                let mainBox = document.getElementById('main');
+                mainBox.removeAttribute('class');
+                mainBox.classList.add('style' + quizSetName);
+
                 let quizBox = document.getElementById('quiz-box');
                 quizBox.innerHTML = '';
                 quizBox.insertAdjacentHTML('beforeend', 
@@ -420,9 +472,14 @@
                 container.insertAdjacentHTML('beforeend',
                         '<p class="score" id="score-' + quizSetName + '"></p>'
                 );
-                document.getElementById('youtube-iframe').src = 'https://www.youtube.com/embed/' + QnA[quizSetName].youtube;
+                container.insertAdjacentHTML('beforeend',
+                        '<a onclick=setVideo("' + QnA[quizSetName].youtube[1] + '")>🗹 See the answers</a>'
+                );
+                setVideo(QnA[quizSetName].youtube[0]);
             }
-
+            function setVideo(videoId) {
+                document.getElementById('youtube-iframe').src = 'https://www.youtube.com/embed/' + videoId;
+            }
             function shouldSqueeze(questionObj, left) {
                 let answer, width;
                 if (left) {
@@ -433,7 +490,7 @@
                     width = 100 - questionObj[3];
                 }
                 // squeeze ratio
-                return answer.length/width >= 0.25 && width < 35;
+                return width <= 15 || (answer.length/width >= 0.25 && width < 40);
             }
 
             openQuizSet('EastAsia');
