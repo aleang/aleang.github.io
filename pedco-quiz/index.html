@@ -2,11 +2,43 @@
 <html>
     <head>
         <title>Pedalling Continents Blog Quiz</title>
-        
+        <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
         <style>
+            body:before,
+            body:after {
+                position: absolute;
+                content: '';
+                height: 100%;
+                width: 100%;
+                top: 0;
+                left: 0;
+                z-index: 1;
+                animation-name: background_smooth_gradient;
+                animation-duration: 4s;
+                animation-iteration-count: infinite;
+                animation-fill-mode: backwards;
+            }
+            body:before {
+                background: linear-gradient(45deg, rgba(5, 53, 4, 0.9), rgba(5, 13, 53, 0.7));
+                opacity: 0;
+                animation-delay: 1s;
+            }
+            body:after {
+                background: linear-gradient(45deg, rgba(39, 7, 70, 0.7), rgba(53, 5, 33, 0.9));
+                opacity: 0;
+                animation-delay: 3s;
+            }
+            @keyframes background_smooth_gradient {
+                0%, 100% { opacity: 0; }
+                50% { opacity: 1; }
+            }
             body {
                 background-color: black;
                 font-family: 'Aveny';
+                overflow: hidden;
             }
             @font-face {
                 font-family: "Aveny"; 
@@ -17,14 +49,17 @@
                     url("https://db.onlinewebfonts.com/t/6cdc4cc6b38c8e89e8721abe8aed4ab9.ttf") format("truetype"),
                     url("https://db.onlinewebfonts.com/t/6cdc4cc6b38c8e89e8721abe8aed4ab9.svg#Aveny T WEB") format("svg"); 
             }
-            /* width */
-            ::-webkit-scrollbar {
+
+            h3 {
+                margin: 0;
+            }
+
+            ::-webkit-scrollbar { /* width */
                 width: 5px;
                 height: 5px;
             }
 
-            /* Handle */
-            ::-webkit-scrollbar-thumb {
+            ::-webkit-scrollbar-thumb { /* Handle */
                 background: black;
                 border-radius: 5px;
             }
@@ -37,10 +72,12 @@
 
             #container {
                 display: flex;
-                max-height: 95vh;
+                max-height: 96vh;
                 overflow: hidden;
-                margin: 0 auto;
+                margin: 2vh auto;
                 max-width: fit-content;
+                z-index: 2;
+                position: relative;
             }
             #tv {
                 flex-grow: 1;
@@ -174,7 +211,8 @@
                 display: flex;
                 transition: 0.2s ease-in;
             }
-            #quiz-box .answer-left.squeeze, #quiz-box .answer-right.squeeze {
+            #quiz-box .answer-left.squeeze .answer-text,
+            #quiz-box .answer-right.squeeze .answer-text {
                 line-height: 12px;
                 font-size: 12px;
             }
@@ -244,10 +282,10 @@
             .styleCentralAsia:hover, #main.styleCentralAsia {
                 background: linear-gradient(45deg, limegreen, lime, #c7ff00);
             }
-            .styleIran {
+            .stylePersia {
                 background: linear-gradient(45deg, #46a09c, cyan);   
             }
-            .styleIran:hover {
+            .stylePersia:hover {
                 background: linear-gradient(45deg,#46a09c, cyan, aqua);
             }
             .styleKurdistanTurkey {
@@ -286,7 +324,7 @@
                 <div id="selection">
                     <div class="story-button styleEastAsia" onclick="openQuizSet('EastAsia')"><span>East Asia</span></div>
                     <div class="story-button styleCentralAsia small" onclick="openQuizSet('CentralAsia')"><span>Central Asia</span></div>
-                    <div class="story-button styleIran" onclick="openQuizSet('Iran')"><span>Iran</span></div>
+                    <div class="story-button stylePersia" onclick="openQuizSet('Persia')"><span>Persia</span></div>
                     <div class="story-button styleKurdistanTurkey small" onclick="openQuizSet('KurdistanTurkey')"><span>Kurdistan Turkey</span></div>
                     <div class="story-button styleBalkans" onclick="openQuizSet('Balkans')"><span>Balkans</span></div>
                     <div class="story-button styleItalyFrance small" onclick="openQuizSet('ItalyFrance')"><span>Italy France</span></div>
@@ -390,6 +428,50 @@
                     ],
                     answers: (272).toString(2).padStart(12, '0'),
                     youtube: ['to5nD6qASPY', 'WRKKH0CWv34']
+                },
+                Persia: {
+                    displayName: 'Persia',
+                    questions: [
+                        [
+                            'What is the name of this iconic tower?',
+                            'Liberty', 'Freedom', 36
+                        ], [
+                            'What makes the rice yellow?',
+                            'Saffron', 'Tumeric', 86
+                        ], [
+                            'Where are we?',
+                            'International School', 'American Embassy', 45
+                        ], [
+                            'What time of the year do families have goldfish at homes?',
+                            'New Year', 'Winter Solstice', 69
+                        ], [
+                            'Which one of us learned to do this clicky thing?',
+                            'Pheng', 'Matt', 72
+                        ], [
+                            'You looking at the ___ Column Hall?',
+                            '100', '1000', 31
+                        ], [
+                            'Where is the cop taking us?',
+                            'Police Station', 'Nearby Hotel', 23
+                        ], [
+                            'How is this meal served?',
+                            'Cold', 'Mashed', 21
+                        ], [
+                            'What\'s being made here?',
+                            'Homemade Alcohol', 'Rose Water', 15 
+                        ], [
+                            'What was this tower used for?',
+                            'Store Grains', 'Collect Bird Poo', 45
+                        ], [
+                            'What\'s the most valuable part of this saffron flower?',
+                            'Filament', 'Stigma', 47
+                        ], [
+                            'Which city did this blue style originated from?',
+                            'Isfahan', 'Shiraz', 60
+                        ]
+                    ],
+                    answers: (2590).toString(2).padStart(12, '0'),
+                    youtube: ['Aje01MKweu8', 's']
                 }
 
             }
@@ -490,7 +572,7 @@
                     width = 100 - questionObj[3];
                 }
                 // squeeze ratio
-                return width <= 15 || (answer.length/width >= 0.25 && width < 40);
+                return width <= 15 || (answer.length/width >= 0.25 && width < 40) || answer.length > 15;
             }
 
             openQuizSet('EastAsia');
