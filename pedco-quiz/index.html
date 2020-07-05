@@ -22,12 +22,12 @@
                 animation-fill-mode: backwards;
             }
             body:before {
-                background: linear-gradient(45deg, rgba(5, 53, 4, 0.9), rgba(5, 13, 53, 0.7));
+                background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
                 opacity: 0;
                 animation-delay: 1s;
             }
             body:after {
-                background: linear-gradient(45deg, rgba(39, 7, 70, 0.7), rgba(53, 5, 33, 0.9));
+                background: linear-gradient(45deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4));
                 opacity: 0;
                 animation-delay: 3s;
             }
@@ -39,6 +39,10 @@
                 background-color: black;
                 font-family: 'Aveny';
                 overflow: hidden;
+                -webkit-user-select: none;  
+                -moz-user-select: none;    
+                -ms-user-select: none;      
+                user-select: none;
             }
             @font-face {
                 font-family: "Aveny"; 
@@ -73,7 +77,6 @@
             #container {
                 display: flex;
                 max-height: 96vh;
-                overflow: hidden;
                 margin: 2vh auto;
                 max-width: fit-content;
                 z-index: 2;
@@ -89,16 +92,20 @@
                 -ms-transform: translate(0, -50%);
                 transform: translate(0, -50%);
                 border-radius: 0 20px 20px 0;
+                box-shadow: #909090 0 0 8px;
             }
             #main {
                 max-width: 500px;
                 margin: 0 auto;
                 text-align: center;
                 padding: 5px;
-                border-radius: 10px;
+                border-radius: 20px;
                 display: flex;
                 flex-grow: 2;
                 flex-direction: column;
+                background: rgb(247,247,247);
+                z-index: 2;
+                box-shadow: #909090 0 0 8px;
             }
             #main h2 {
                 font-weight: 500;
@@ -155,6 +162,7 @@
             #quiz-box {
                 flex-grow: 2;
                 overflow: auto;
+                padding: 25px;
             }
             #quiz-box .quiz {
                 margin: 30px;
@@ -273,48 +281,48 @@
             .styleEastAsia {
                 background: linear-gradient(45deg, crimson, yellow);   
             }
-            .styleEastAsia:hover, #main.styleEastAsia {
+            .styleEastAsia.story-button:hover {
                 background: linear-gradient(45deg, crimson, orange, yellow);
             }
             .styleCentralAsia {
                 background: linear-gradient(45deg, limegreen, #c7ff00);   
             }
-            .styleCentralAsia:hover, #main.styleCentralAsia {
+            .styleCentralAsia.story-button:hover {
                 background: linear-gradient(45deg, limegreen, lime, #c7ff00);
             }
             .stylePersia {
                 background: linear-gradient(45deg, #46a09c, cyan);   
             }
-            .stylePersia:hover {
+            .stylePersia.story-button:hover {
                 background: linear-gradient(45deg,#46a09c, cyan, aqua);
             }
             .styleKurdistanTurkey {
-                background: linear-gradient(45deg, moccasin, gold, yellow);   
+                background: linear-gradient(45deg, #ffb93e, gold, yellow);   
             }
-            .styleKurdistanTurkey:hover {
-                background: linear-gradient(45deg,moccasin, yellow);
+            .styleKurdistanTurkey.story-button:hover {
+                background: linear-gradient(45deg,#ffb93e, yellow);
             }
             .styleBalkans {
                 background: linear-gradient(45deg, mediumorchid, fuchsia);   
             }
-            .styleBalkans:hover {
+            .styleBalkans.story-button:hover {
                 background: linear-gradient(45deg,mediumorchid, violet, fuchsia);
             }
             .styleItalyFrance {
                 background: linear-gradient(45deg, crimson, salmon);   
             }
-            .styleItalyFrance:hover {
+            .styleItalyFrance.story-button:hover {
                 background: linear-gradient(45deg, crimson, orangered, salmon);
             }
             .styleSpainPortugal {
                 background: linear-gradient(45deg, mediumseagreen, #39ecbd);
             }
-            .styleSpainPortugal:hover {
+            .styleSpainPortugal.story-button:hover {
                 background: linear-gradient(45deg, mediumseagreen, mediumspringgreen, #39ecbd);
             }
         </style>
     </head>
-    <body>
+    <body id="bod">
         <div id="container">
             <div id="main">
                 <h2>
@@ -471,7 +479,51 @@
                         ]
                     ],
                     answers: (2590).toString(2).padStart(12, '0'),
-                    youtube: ['Aje01MKweu8', 's']
+                    youtube: ['FxTcjoDKBmU', '6xh96Dw0cAA']
+                },
+                KurdistanTurkey: {
+                    displayName: 'Kurdistan & Turkey',
+                    questions: [
+                        [
+                            'What is this man selling?',
+                            'Tea', 'Coffee',  61
+                        ], [
+                            'What goes in these pockets?',
+                            'Bird Food', 'Candles', 38
+                        ], [
+                            'What is used in this green dessert?',
+                            'Matcha', 'Pistacio', 4
+                        ], [
+                            'In Diyarbakir, how often were these flying over each day?',
+                            '↙10', '11↗', 27
+                        ], [
+                            'What is always served with Turkish Coffee?',
+                            'Water', 'Rose Water', 64 
+                        ], [
+                            'What are they celebrating for?',
+                            'Local Election', 'New Law', 69
+                        ], [
+                            'Pammukale means ___ Castle?',
+                            'Snow', 'Cotton', 25
+                        ], [
+                            'What was at Cannakale?',
+                            'Hot Air Balloons', 'Anzac Memorial', 31
+                        ], [
+                            'What could this white stuff be?',
+                            'Food', 'Not Food', 57
+                        ], [
+                            'Is this natural?',
+                            'Yes', 'No', 85
+                        ], [
+                            'How did we bring our bikes over to Europe?',
+                            'Boat', 'Subway', 84
+                        ], [
+                            'What did we just have?',
+                            'Full Body Waxing', 'Turkish Bath', 12 
+                        ]
+                    ],
+                    answers: (1843).toString(2).padStart(12, '0'),
+                    youtube: ['', '']
                 }
 
             }
@@ -500,11 +552,8 @@
                 thisElement.parentElement.getElementsByClassName('hide')[0].classList.remove('hide');
                 // display full colour of selected answer
                 thisElement.classList.add('revealed');
-                // reveal if they're correct or wrong
-                // thisElement.parentElement.parentElement.style.backgroundColor = 
-                //     QnA[quizSet].answers[questionNumber] === String(answer) ?
-                //     correct : incorrect;
 
+                // reveal if they're correct or wrong
                 thisElement.parentElement.parentElement.classList.add( 
                     QnA[quizSet].answers[questionNumber] === String(answer) ?
                     'correct' : 'incorrect');
@@ -517,7 +566,7 @@
             function openQuizSet(quizSetName) {
                 var i;
 
-                let mainBox = document.getElementById('main');
+                let mainBox = document.getElementById('bod');
                 mainBox.removeAttribute('class');
                 mainBox.classList.add('style' + quizSetName);
 
@@ -565,17 +614,37 @@
             function shouldSqueeze(questionObj, left) {
                 let answer, width;
                 if (left) {
-                    answer = questionObj[1];
+                    // wide characters are bloated so they count as 2
+                    answer = questionObj[1].replace(/[wmMW]/g, '**');
+                    
                     width = questionObj[3];
                 } else {
-                    answer = questionObj[2];
+                    answer = questionObj[2].replace(/[wmMW]/g, '**');
                     width = 100 - questionObj[3];
                 }
                 // squeeze ratio
-                return width <= 15 || (answer.length/width >= 0.25 && width < 40) || answer.length > 15;
+                return width <= 15 || (answer.length/width >= 0.25 && width < 40) || answer.length > 18;
             }
 
+            // Load East Asia on first load
             openQuizSet('EastAsia');
+
+            /*
+            Quiz Set template 
+
+            Persia: {
+                    displayName: '',
+                    questions: [
+                        , [
+                            '?',
+                            '', '', 
+                        ]
+                    ],
+                    answers: (2590).toString(2).padStart(12, '0'),
+                    youtube: ['', '']
+                }
+            */
+
         </script>
     </body>
 </html>
