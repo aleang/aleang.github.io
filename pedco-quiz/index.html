@@ -27,7 +27,7 @@
                 animation-delay: 1s;
             }
             body:after {
-                background: linear-gradient(45deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4));
+                background: linear-gradient(45deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.7));
                 opacity: 0;
                 animation-delay: 3s;
             }
@@ -191,7 +191,7 @@
             }
             #quiz-box .quiz.incorrect::after {
                 background: #ffeded;
-                content: '✘ Nope, sorry';       
+                content: '✘ Wrong';       
                 color: red;         
             }
             #quiz-box .question-text {
@@ -210,7 +210,7 @@
                 cursor: pointer;
                 z-index: 2;
                 position: relative;
-                
+                overflow: hidden;
             }
             #quiz-box .answer-left, #quiz-box .answer-right {
                 flex-basis: 0;
@@ -258,11 +258,10 @@
                 -webkit-background-clip: border-box;
                 -webkit-text-fill-color: #ffffff;
             }
-            /* #quiz-box .answer-tab > .revealed.disabled:hover {
-                box-shadow: none;
-            } */
             .answer-text {
                 margin: auto;
+                text-transform: uppercase;
+                padding: 4px 2px 0 2px;
             }
             .answer-percentage::after {
                 content: '%';
@@ -272,7 +271,7 @@
             }
             p.score {
                 border-top: 2px grey dashed;
-                padding-top: 10px;
+                padding-top: 20px;
             }
             a {
                 text-decoration: underline;
@@ -341,7 +340,7 @@
                 <div id="quiz-box"></div>
             </div>
             <div id="tv">
-                <iframe id="youtube-iframe" height="560" width="315" src="https://www.youtube.com/embed/iYAiIpnRRBU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe id="youtube-iframe" height="560" width="315" src="https://www.youtube.com/embed/'videoseries?list=" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
         <script>
@@ -391,7 +390,7 @@
                         ]
                     ],
                     answers: (2184).toString(2).padStart(12, '0'),
-                    youtube: ['y2bDXRViSpY', 'modaGag7YPU']
+                    youtube: ['PLNflYbdjm-1H8KCYemduUeMBPExGKoliS', 'y2bDXRViSpY', 'modaGag7YPU']
                 },
                 CentralAsia: {
                     displayName: 'Central Asia',
@@ -435,7 +434,7 @@
                         ],
                     ],
                     answers: (272).toString(2).padStart(12, '0'),
-                    youtube: ['to5nD6qASPY', 'WRKKH0CWv34']
+                    youtube: ['PLNflYbdjm-1HYsuSd6zLIsT5ZKiqMnA2e', 'WRKKH0CWv34']
                 },
                 Persia: {
                     displayName: 'Persia',
@@ -479,7 +478,7 @@
                         ]
                     ],
                     answers: (2590).toString(2).padStart(12, '0'),
-                    youtube: ['FxTcjoDKBmU', '6xh96Dw0cAA']
+                    youtube: ['PLNflYbdjm-1FGbeVi89NCVCD6_36otu4V', '6xh96Dw0cAA']
                 },
                 KurdistanTurkey: {
                     displayName: 'Kurdistan & Turkey',
@@ -523,7 +522,51 @@
                         ]
                     ],
                     answers: (1843).toString(2).padStart(12, '0'),
-                    youtube: ['', '']
+                    youtube: ['PLNflYbdjm-1G-iSDzJAO3570Hhsboyv-0', 'f3ZOHRtv7O4']
+                },
+                Balkans: {
+                    displayName: 'Balkans',
+                    questions: [
+                        [
+                            'How is the letter <span style="font-family: Tahoma, Arial, sans-serif;">"Я"</span> pronounced?',
+                            'EEA', 'YA', 20
+                        ], [
+                            'When is the best time to eat this watermelon salad?',
+                            'Winter', 'Summer', 17
+                        ], [
+                            'What is in Matt\'s hand?',
+                            'Blackberries', 'Raspberries', 83
+                        ], [
+                            'What did she do after raking it?',
+                            'Walk on it', 'Eat a piece', 90
+                        ], [
+                            'What is Bulgaria\'s UFO?',
+                            'Opera House', 'Monument',  33
+                        ], [
+                            'Who did the pelicans liked more?',
+                            'Matt', 'Pheng', 69 
+                        ], [
+                            'What\'s cooking?',
+                            'Lutenica', 'Raki', 29
+                        ], [
+                            'In which country did we see these beauties?',
+                            'Serbia', 'Bosnia i H', 37
+                        ], [
+                            'What are these little houses?',
+                            'Watermill', 'Picnic Hut', 79
+                        ], [
+                            'How long did we take to cross Slovenia?',
+                            '5 Hours', '5 Days', 64
+                        ], [
+                            'In which city did we attend their first Pride?',
+                            'Belgrade', 'Sarajevo', 33
+                        ], [
+                            'What is in Pheng\'s hand?',
+                            'Crabapple', 'Figs', 15
+                        ]
+                    ],
+                    answers: (3251).toString(2).padStart(12, '0'),
+                    youtube: ['PLNflYbdjm-1FdsgYlrroSrGsXMh8zAzQB', 'JzdZRDdiuVs']
                 }
 
             }
@@ -604,12 +647,16 @@
                         '<p class="score" id="score-' + quizSetName + '"></p>'
                 );
                 container.insertAdjacentHTML('beforeend',
-                        '<a onclick=setVideo("' + QnA[quizSetName].youtube[1] + '")>🗹 See the answers</a>'
+                        '<a onclick=setVideo("' + QnA[quizSetName].youtube[1] + '")>Review the answers</a>'
                 );
-                setVideo(QnA[quizSetName].youtube[0]);
+                setPlaylist(QnA[quizSetName].youtube[0]);
             }
             function setVideo(videoId) {
                 document.getElementById('youtube-iframe').src = 'https://www.youtube.com/embed/' + videoId;
+                document.getElementById('quiz-box').scrollTop = 0;
+            }
+            function setPlaylist(videoId) {
+                document.getElementById('youtube-iframe').src = 'https://www.youtube.com/embed/videoseries?list=' + videoId;
             }
             function shouldSqueeze(questionObj, left) {
                 let answer, width;
@@ -633,16 +680,16 @@
             Quiz Set template 
 
             Persia: {
-                    displayName: '',
-                    questions: [
-                        , [
-                            '?',
-                            '', '', 
-                        ]
-                    ],
-                    answers: (2590).toString(2).padStart(12, '0'),
-                    youtube: ['', '']
-                }
+                displayName: '',
+                questions: [
+                    , [
+                        '?',
+                        '', '', 
+                    ]
+                ],
+                answers: (2590).toString(2).padStart(12, '0'),
+                youtube: ['', '']
+            }
             */
 
         </script>
