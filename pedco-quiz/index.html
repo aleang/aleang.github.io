@@ -11,7 +11,7 @@
             body:after {
                 position: absolute;
                 content: '';
-                height: 100%;
+                height: 100vw;
                 width: 100%;
                 top: 0;
                 left: 0;
@@ -120,10 +120,25 @@
                 min-height: 100px;
                 height: 100px;
                 max-height: 100px;
-                padding: 0 10px;
-                margin: 0 20px 20px 20px;
+                padding: 0 15px;
+                margin-bottom: 10px;
                 overflow-y: hidden;
                 flex-grow: 1;
+            }
+            #selection:before, #selection:after {
+                width: 30px;
+                position: absolute;
+                z-index: 2;
+                height: 90px;
+                content: '';
+            }
+            #selection:before {
+                background: linear-gradient(90deg, #f7f7f7 50%, transparent);
+                left: 0;
+            }
+            #selection:after {
+                background: linear-gradient(-90deg, #f7f7f7 50%, transparent);
+                left: 480px;
             }
             .story-button {
                 width: 77px;
@@ -164,6 +179,16 @@
                 overflow: auto;
                 padding: 25px;
             }
+            #quiz-box:before {
+                content: '';
+                width: 500px;
+                height: 30px;
+                background: linear-gradient(0deg, transparent, #F7F7F7 50%);
+                position: absolute;
+                left: 0;
+                margin-top: -30px;
+                z-index: 3;
+            }
             #quiz-box .quiz {
                 margin: 30px;
                 
@@ -185,7 +210,7 @@
                 border-radius: 0 0 5px 5px;
             }
             #quiz-box .quiz.correct::after {
-                background: #d4e6f5;
+                background: palegreen;
                 content: '✓ Correct!';
                 color: green;
             }
@@ -567,8 +592,95 @@
                     ],
                     answers: (3251).toString(2).padStart(12, '0'),
                     youtube: ['PLNflYbdjm-1FdsgYlrroSrGsXMh8zAzQB', 'JzdZRDdiuVs']
+                },
+                ItalyFrance: {
+                    displayName: 'Italy & France',
+                    questions: [
+                        [
+                            'Where is Matt?',
+                            'Miniature World', 'Cemetery', 15
+                        ], [
+                            'On a Cheese course, which one do you start with?',
+                            'Blue Cheese', 'Ricotta', 28
+                        ], [
+                            'This beautiful building is the ___?',
+                            'Museum', 'Train Station', 10
+                        ], [
+                            '"Ciao" came from the Venetian dialect, meaning "I am your ___?"',
+                            'Friend', 'Slave', 71
+                        ], [
+                            'This building is called Vertical Forest. In Italian that would be?',
+                            'Bosco Verticale', 'Albero Verticale', 64
+                        ], [
+                            'The smaller country we crossed was Monaco. How long did it took us?',
+                            '10 Mins', '30 Mins', 39
+                        ], [
+                            'A French classic: what is this soup?',
+                            'Onion', 'Bread', 73
+                        ], [
+                            'This lovely village had a lot of what roaming around?',
+                            'Cat', 'Dog', 83
+                        ], [
+                            'Côte d\'Azur in French means...?',
+                            'Azure Country', 'Azure Coast', 14
+                        ], [
+                            'This pie from Montpellier, France is made of what?',
+                            'Snails', 'Squid', 49
+                        ], [
+                            'How long does it take to pass through one lock in the French canals?',
+                            'Less', 'More', 28
+                        ], [
+                            'Which birds are we watching?',
+                            'Swans', 'Flamingos', 75
+                        ]
+                    ],
+                    answers: (3917).toString(2).padStart(12, '0'),
+                    youtube: ['PLNflYbdjm-1EZ8HlLaadE0qT5gZWcJyYm', '0JsbHP6_z84']
+                },
+                SpainPortugal: {
+                    displayName: 'Spain & Portugal',
+                    questions: [
+                        [
+                            'Which curch was featured in Game of Thrones?',
+                            'Girona', 'Murcia', 65
+                        ], [
+                            'Which region is seeking<br>independence from Spain?',
+                            'Aragon', 'Catalan', 7
+                        ], [
+                            'What\'s in this flipped Spanish omelette?',
+                            'Cheese', 'Potatoes', 23
+                        ], [
+                            'In which holidays are these<br>Almond Shortbread eaten?',
+                            'Halloween', 'Christmas', 28
+                        ], [
+                            'What are we waiting to see?',
+                            'Bulls', 'Firework', 82
+                        ], [
+                            'How much for one Ostrich egg?',
+                            'Less', 'More', 50
+                        ], [
+                            'Known for being Spain\'s first public garden,<br>the trees were planted around?',
+                            '1300', '1700', 47
+                        ], [
+                            'What is cooked in these pans?',
+                            'Paella', 'Tortilla', 74 
+                        ], [
+                            'Game of Throne\'s "Dorne" was filmed in?',
+                            'Granada', 'Seville', 51
+                        ], [
+                            'The bark from these trees are turned into what?',
+                            'Cork', 'Medicine', 74
+                        ], [
+                            'The Atlantic Coastal Route (EuroVelo 1)<br>is between Portugal and ___?',
+                            'Norway', 'Sweden', 56
+                        ], [
+                            'What is the real name of<br>Portugal\'s capital city?',
+                            'Lisboa', 'Lisban', 71
+                        ]
+                    ],
+                    answers: (1960).toString(2).padStart(12, '0'),
+                    youtube: ['', '']
                 }
-
             }
             
             function submitAnswer(quizSet, thisElement, questionNumber, answer) {
@@ -650,13 +762,30 @@
                         '<a onclick=setVideo("' + QnA[quizSetName].youtube[1] + '")>Review the answers</a>'
                 );
                 setPlaylist(QnA[quizSetName].youtube[0]);
+                smoothRise();
             }
             function setVideo(videoId) {
                 document.getElementById('youtube-iframe').src = 'https://www.youtube.com/embed/' + videoId;
-                document.getElementById('quiz-box').scrollTop = 0;
+                smoothRise();
             }
             function setPlaylist(videoId) {
                 document.getElementById('youtube-iframe').src = 'https://www.youtube.com/embed/videoseries?list=' + videoId;
+            }
+            function smoothRise() {
+                
+                let moveIt = setInterval(smoothMove, 20);
+                
+                function smoothMove() {
+                    let quizBox = document.getElementById('quiz-box');
+                    let c = quizBox.scrollTop;
+                    quizBox.scrollTop = c - (c / 8);
+                    
+                    if (c <= 0) {
+                        clearInterval(moveIt);
+                    }
+                }
+                    
+                
             }
             function shouldSqueeze(questionObj, left) {
                 let answer, width;
