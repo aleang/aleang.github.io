@@ -355,13 +355,28 @@ svg:not(:root) {
  */
 figure {
   margin: 0;
+  text-align: center;
 }
-
+figure.multi {
+  display: flex;
+  justify-content: space-evenly;
+}
+figure + p {
+  text-align: center;
+  margin-top: 10px;
+}
+figure img {
+  border: 5px #e9e6d6 solid;
+    box-shadow: 2px 2px 8px #a1a09c;
+}
 figure.pedco img {
-  width: 140px;
+  width: 130px;
 }
 figure.pedco-quiz img {
-  width: 280px;
+  width: 270px;
+}
+figure.kudos img {
+  width: 180px;
 }
 /* =============================================================================
    Forms
