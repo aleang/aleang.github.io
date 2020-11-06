@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wombo Audio</title>
+<link rel="icon" href="favicon.svg" sizes="any" type="image/svg+xml">
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: rgb(69,69,69);
+        overflow: hidden;
+        text-align: center;
+    }
+
+    iframe {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 10px solid;
+    border-radius: 32px;
+    }
+
+    .television {
+    width: 450px;
+    margin: 0 auto;
+    }
+
+    .television__top {
+    width: 40%;
+    margin: auto;
+    position: relative;
+    }
+
+    .television__antenna {
+    width: 5px;
+    height: 100px;
+    background-color: #3b3733;
+    margin-bottom: -10px;
+    }
+
+    .television__antenna--left {
+    transform: rotate(-30deg);
+    float: left;
+    }
+
+    .television__antenna--right {
+    transform: rotate(30deg);
+    float: right;
+    }
+
+    .television__antenna__base {
+    height: 20px;
+    background-color: #3b3733;
+    border-top-left-radius: 48px;
+    border-top-right-radius: 48px;
+    margin-bottom: 10px;
+    clear: both;
+    position: relative;
+    z-index: 2;
+    }
+
+    .television__center {
+    position: relative;
+    z-index: 2;
+    width: 350px;
+    height: 200px;
+    background-color: #7a4e27;
+    border: solid 3px #eef4c4;
+    box-shadow: -10px -10px #d64832;
+    border-radius: 48px;
+    margin: 0 auto;
+    padding: 10px 15px;
+    }
+
+    .television__screen {
+        width: 253px;
+        height: 190px;
+        background-color: #3e3e3e;
+        border-radius: 48px;
+        float: left;
+        overflow: hidden;
+        border: 5px solid black;
+    }
+    #television__screen-box {
+        overflow: hidden;
+    }
+    .television__channels-wrapper {
+        width: 70px;
+        height: 190px;
+        background-color: #efd6b7;
+        border-radius: 48px;
+        float: right;
+    }
+
+    .television__channels {
+    padding: 0;
+    }
+
+    .television__channel {
+        list-style-type: none;
+        background-color: #7f4b23;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin: 5px;
+        float: left;
+        position: relative;
+    }
+
+    .television__channel a {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-55%, -50%);
+        background-color: #e6a146;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+    .television__channel a:hover {
+        background-color: #b36f18;
+    }
+    .television__channel a:active {
+    box-shadow: inset rgba(255,255,255,0.6) 0 2px 2px,
+                inset rgba(0,0,0,0.15) 0 -2px 5px, /* inner shadow */
+                        rgba(100,100,100,0.6) 0 2px 1px,
+                rgba(100,100,100,0.6) 0 2px 1px; /* color border */
+    }
+    .television__screen textarea {
+        width: 85%;
+        height: 80%;
+        outline: none;
+        padding: 20px;
+        font-size: 20px;
+        background: linear-gradient(45deg, crimson, yellow);
+    }
+    
+    .television__base {
+    width: 60%;
+    margin: auto;
+    }
+
+    .television__base:after {
+    clear: both;
+    content: "";
+    display: table;
+    }
+
+    .television__foot {
+    width: 20px;
+    height: 70px;
+        margin-top: -20px;
+    background-color: #7d4d25;
+    border: solid 3px #eed5b6;
+    border-radius: 48px;
+    }
+
+    .television__foot--left {
+    transform: rotate(30deg);
+    float: left;
+    }
+
+    .television__foot--right {
+    transform: rotate(-30deg);
+    float: right;
+    }
+
+    .p {
+        color: #232323;
+        text-align: left;
+        position: absolute;
+        bottom: 0;
+    }
+    .p a {
+        color: #232323;
+    }
+
+    #corner {
+        width: 500px;
+        height: 400px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: 3;
+    }
+    #remote {
+        width: 200px;
+        background: #ababab;
+        height: 600px;
+        border-radius: 50px;
+        position: absolute;
+        bottom: -300px;
+        right: 100px;
+        padding-top: 40px;
+        transition: all .3s ease;
+        box-shadow: 
+            inset 0 0 15px rgba(0,0,0,0.35), 
+            7px 7px 15px rgba(0,0,0,.3), 
+            -7px -7px 20px rgb(68, 68, 68)
+
+    }
+    #corner:hover #remote {
+        bottom: -60px;
+        background-color: #c7c7c7;
+        -webkit-transform: rotateX(55deg) rotateY(-7deg) rotateZ(-7deg) translateX(-21px) translateY(40px)  translateZ(-150px)  skewX(8deg);
+        -moz-transform: rotateX(55deg) rotateY(-7deg) rotateZ(-7deg) translateX(-21px) translateY(40px)  translateZ(-150px)  skewX(8deg);
+        -ms-transform: rotateX(55deg) rotateY(-7deg) rotateZ(-7deg) translateX(-21px) translateY(40px)  translateZ(-150px)  skewX(8deg);
+        -o-transform: rotateX(55deg) rotateY(-7deg) rotateZ(-7deg) translateX(-21px) translateY(40px)  translateZ(-150px)  skewX(8deg);
+        transform:  rotateX(55deg) rotateY(-7deg) rotateZ(-7deg) translateX(-21px) translateY(40px)  translateZ(-150px)  skewX(8deg);
+        box-shadow: 
+            inset 0 0 20px rgba(0,0,0,0.35),
+            20px 5px 20px 4px rgba(0,0,0,.3),
+            -7px -7px 20px rgb(68, 68, 68);
+    }
+
+    #logo {
+        width: 60%;
+        margin: 0 auto;
+    }
+    #logo span {
+        font-size: 50px;
+        color: #696969;
+        font-family: 'Helvetica', Arial, sans-serif;
+        top: -5px;
+        display: inline;
+        position: relative;
+    }
+    #banana {
+        width: 40%;
+        display: inline-block;
+    }
+    #red-button {
+        width: 100px;
+        height: 100px;
+        background: #980000;
+        border-radius: 100px;
+        margin: auto;
+        margin-top: 70px;
+        transition: all .15s ease;
+        box-shadow: 
+            inset 0 0 15px rgba(0,0,0,0.35),
+            7px 7px 15px rgba(0,0,0,.3),
+            -2px -4px 20px rgba(255, 213, 213,1);
+        
+    }
+    #remote:hover #red-button {
+        background: #ca0e0e;
+        box-shadow: 
+            inset 0 0 15px rgba(0,0,0,0.35), 
+            7px 7px 15px rgba(0,0,0,.3), 
+            0px 5px 2px rgba(0,0,0,.3), 
+            -3px -4px 20px rgba(255, 213, 213,1);
+    }
+    #remote:hover #red-button:hover {
+        box-shadow: 
+            inset 0 0 15px rgba(255, 255, 255, 0.22), 
+            2px 2px 15px rgba(0,0,0,.3), 
+            -1px -1px 20px rgba(255, 213, 213,1),
+            0px 4px 2px rgba(0,0,0,.3);
+        top: 5px;
+        left: -2px;
+        position: relative;
+    }
+    #remote:hover #red-button:active {
+        box-shadow: 
+            0 0 15px rgba(255, 255, 255, 0.22),
+            inset 0px 6px 5px rgba(0,0,0,.3);
+        top: 7px;
+        position: relative;
+    }
+    #tv-channel-bar {
+        padding: 5px 0 5px 17px;
+        position: absolute;
+        width: 200px;
+        text-align: left;
+        bottom: 15px;
+    }
+    #tv-logo {
+        background: black;
+        padding: 5px 2px 5px 4px;
+    }
+    .hide {
+        display: none;
+    }
+    #tv-logo .logo1 {
+        color: white;
+    }
+    #tv-logo .logo2 {
+        background: gold;
+        border-radius: 3px;
+        padding: 2px;
+        margin-left: 0;
+        position: relative;
+        left: -3px;
+    }
+    .preloadImageHideAll {
+        display: none;
+    }
+
+    
+</style>
+</head>
+<body onkeydown="if(event.keyCode == 13) readAloud();">
+    <!-- 
+                           ,;,,;'
+                      ,;;'(
+           __       ,;;' ' \
+         /'  '\'~~'~' \ /'\.)
+      ,;(      )    /  |.
+     ,;' \    /-.,,(   ) \
+          ) /       ) / )|
+          ||        ||  \)
+          (_\       (_\
+What are you doing here?
+ -->
+<div id="site-brand" class="glitch-wrapper">
+    <div class="glitch" data-text="Wombo Audio">Wombo Audio</div>
+</div> 
+<div class="tv">
+    <div class="television">
+        <div class="television__top">
+          <div class="television__antenna television__antenna--left"></div>
+          <div class="television__antenna television__antenna--right"></div>
+          <div class="television__antenna__base"></div>
+        </div>
+        <!-- television__top -->
+        <div class="television__center">
+          <div class="television__screen">
+              <textarea id="mainInput" placeholder="Type anything to hear it! (then Enter)">Today I like green lettuce and yam. I do like them, yam I am</textarea>
+          </div>
+          <!-- television__screen -->
+          <div class="television__channels-wrapper">
+            <ul class="television__channels">
+              <li class="television__channel"><a title="Frere Jacque" onclick="fillTV('frere-jacque')"></a></li>
+              <li class="television__channel"><a title="Fur Elise" onclick="fillTV('fur-elise')"></a></li>
+              <li class="television__channel"><a title="God Save the Queen" onclick="fillTV('uk-anthem')"></a></li>
+              <li class="television__channel"><a title="The Simpsons" onclick="fillTV('the-simpsons')"></a></li>
+              <li class="television__channel"><a title="Mary Had a Little Lamb" onclick="fillTV('little-lamb')"></a></li>
+              <li class="television__channel"><a title="Can Can" onclick="fillTV('can-can')"></a></li>
+              <li class="television__channel"><a title="We Will Rock You (thanks Daniel C)" onclick="fillTV('we-will-rock-you')"></a></li>
+              <li class="television__channel"><a title="Star Wars (thanks Shayoke M)" onclick="fillTV('star-wars')"></a></li>
+            </ul>
+          </div>
+          <!-- television__channels-wrapper -->
+        </div>
+        <!-- television__center -->
+        <div class="television__base">
+          <div class="television__foot television__foot--left"></div>
+          <div class="television__foot television__foot--right"></div>
+        </div>
+        <!-- television__base -->
+      </div><!-- .television -->
+      
+    <p class="p">TV Designed by <a href="http://www.sitepoint.com/creating-vintage-television-using-bem-css3-javascript" target="_blank">Annarita Tranfici</a>.
+    <br>Glitchy Branding Designed by <a href="https://codepen.io/anatravas" target="_blank">Ana Travas</a>.
+    <br>Remote Designed by <a href="http://github.com/aleang" target="_blank">Pheng Taing</a>.
+    </p>
+</div>
+<div id="corner">
+    <div id="remote">
+        <div id="logo">
+            <div id="banana">
+                <!-- Icons made by "https://www.flaticon.com/authors/freepik"  -->
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 511.999 511.999" fill="#696969" style="enable-background:new 0 0 511.999 511.999;" xml:space="preserve">
+                <g><path d="m495.34 133.771c-25.408-66.017-72.531-113.117-90.271-130.848l-.727-.728c-2.93-2.928-7.678-2.928-10.608 0l-116.241 116.244c-2.929 2.93-2.929 7.678 0 10.608 2.929 2.928 7.678 2.928 10.607 0l76.383-76.384c48.472 49.769 64.321 84.949 74.111 115.57 3.652 11.43 6.139 22.979 7.39 34.326.423 3.839 3.672 6.68 7.445 6.68.275 0 .553-.016.831-.046 4.117-.454 7.087-4.159 6.634-8.277-1.36-12.338-4.056-24.871-8.013-37.251-9.865-30.858-26.884-69.324-77.791-121.61l23.923-23.924c114.42 117.086 129.018 238.15 42.112 350.424-2.535 3.275-1.936 7.987 1.34 10.522 1.366 1.058 2.982 1.569 4.586 1.569 2.24 0 4.458-1 5.936-2.909 32.78-42.347 52.113-86.565 57.466-131.425 4.427-37.117-.657-74.982-15.113-112.541z"/><path d="m429.036 394.826c-3.035-2.819-7.781-2.645-10.6.389-3.659 3.939-7.495 7.916-11.404 11.824-80.648 80.65-166.116 107.291-254.026 79.188-65.132-20.822-113.167-65.684-134.893-87.19l23.94-23.941c26.539 25.853 51.567 45.055 76.344 58.589 1.142.624 2.374.919 3.588.919 2.654 0 5.227-1.412 6.589-3.905 1.986-3.636.648-8.193-2.987-10.178-23.523-12.849-47.433-31.215-72.926-56.033l208.644-208.646c2.929-2.93 2.929-7.678 0-10.608-2.929-2.928-7.678-2.928-10.607 0l-248.501 248.506c-1.407 1.407-2.197 3.314-2.197 5.304 0 1.989.79 3.897 2.197 5.304l.728.728c19.652 19.663 71.855 71.891 145.514 95.439 23.944 7.654 47.928 11.485 71.739 11.485 17.93 0 35.764-2.173 53.403-6.523 49.521-12.211 97.989-41.762 144.059-87.832 4.036-4.037 8.001-8.149 11.784-12.22 2.82-3.034 2.646-7.78-.388-10.599z"/><path d="m155.328 450.091c2.696.949 5.501 1.89 8.336 2.796 18.943 6.055 37.854 9.085 56.564 9.085 13.929 0 27.748-1.68 41.382-5.042 40.543-9.996 81.143-35.109 120.674-74.641s64.643-80.132 74.64-120.675c1.701-6.899 2.987-13.943 3.823-20.936.491-4.112-2.444-7.845-6.558-8.337-4.091-.492-7.844 2.444-8.337 6.558-.763 6.385-1.939 12.82-3.493 19.124-9.332 37.851-33.113 76.091-70.683 113.659-37.568 37.57-75.808 61.351-113.658 70.684-29.215 7.208-59.425 5.939-89.787-3.766-2.698-.862-5.364-1.757-7.923-2.657-3.908-1.375-8.19.678-9.565 4.584-1.374 3.907.678 8.189 4.585 9.564z"/><path d="m305.888 299.438c-3.355.443-5.998 3.079-6.45 6.433-.431 3.196-3.806 31.64 10.36 45.806 5.773 5.772 13.355 8.657 20.937 8.657 7.583 0 15.166-2.886 20.938-8.658 11.544-11.545 11.544-30.33 0-41.875-14.091-14.09-42.583-10.785-45.785-10.363zm35.178 41.631c-5.696 5.698-14.966 5.696-20.662 0-5.837-5.837-6.787-18.749-6.539-27.185 8.462-.235 21.398.723 27.2 6.525 5.697 5.695 5.697 14.964.001 20.66z"/><path d="m229.812 354.887c-3.355.443-5.998 3.079-6.45 6.433-.037.272-.894 6.759-.364 14.624.769 11.42 3.987 20.039 9.565 25.618 5.165 5.165 11.95 7.747 18.735 7.747s13.57-2.582 18.736-7.748c10.33-10.331 10.33-27.14 0-37.471-12.464-12.462-37.416-9.573-40.222-9.203zm29.614 36.068c-4.481 4.482-11.774 4.483-16.257.001-4.555-4.556-5.452-14.559-5.336-21.593 7.38-.114 17.249.992 21.593 5.336 4.481 4.481 4.481 11.774 0 16.256z"/><path d="m401.556 232.565c-12.464-12.463-37.418-9.574-40.22-9.202-3.356.443-5.998 3.079-6.45 6.433-.037.272-.894 6.759-.364 14.624.769 11.42 3.986 20.039 9.565 25.617 5.166 5.165 11.949 7.747 18.735 7.747 6.784 0 13.572-2.583 18.737-7.747 5.004-5.005 7.76-11.659 7.76-18.736-.002-7.078-2.758-13.731-7.763-18.736zm-10.605 26.864c-4.482 4.482-11.774 4.484-16.258 0-4.552-4.552-5.451-14.544-5.336-21.579 7.048-.092 17.07.799 21.593 5.322 4.482 4.482 4.482 11.775.001 16.257z"/><path d="m202.596 254.836c-3.355.443-5.998 3.079-6.45 6.433-.037.272-.894 6.759-.364 14.624.768 11.42 3.986 20.039 9.565 25.618 5.165 5.165 11.95 7.747 18.735 7.747s13.57-2.582 18.735-7.747c10.331-10.331 10.331-27.14 0-37.472-12.465-12.463-37.416-9.573-40.221-9.203zm29.613 36.067c-4.482 4.483-11.775 4.482-16.257.001-4.552-4.553-5.451-14.546-5.336-21.58 7.057-.132 17.069.799 21.593 5.322 4.482 4.482 4.482 11.776 0 16.257z"/><path d="m143.418 327.182c-3.355.443-5.998 3.079-6.45 6.433-.43 3.188-3.795 31.551 10.333 45.679 5.759 5.758 13.323 8.638 20.887 8.638s15.129-2.88 20.887-8.638c11.517-11.518 11.517-30.258 0-41.776-14.053-14.052-42.464-10.758-45.657-10.336zm35.05 41.504c-5.669 5.67-14.892 5.67-20.561 0-5.808-5.808-6.756-18.652-6.511-27.057 8.438-.232 21.3.724 27.073 6.497 5.668 5.668 5.668 14.892-.001 20.56z"/><path d="m339.069 142.403c-3.355.443-5.998 3.079-6.45 6.433-.037.272-.894 6.758-.365 14.624.769 11.42 3.986 20.039 9.564 25.617 5.005 5.004 11.659 7.761 18.736 7.761s13.732-2.757 18.736-7.761c5.004-5.005 7.76-11.659 7.76-18.735 0-7.077-2.756-13.731-7.76-18.735-12.464-12.465-37.416-9.574-40.221-9.204zm29.613 36.067c-2.171 2.171-5.058 3.367-8.128 3.367s-5.957-1.196-8.128-3.368c-4.552-4.552-5.451-14.544-5.336-21.579 7.047-.108 17.069.799 21.592 5.322v.001c4.482 4.483 4.482 11.775 0 16.257z"/><path d="m261.286 196.145c-3.355.443-5.998 3.079-6.45 6.433-.483 3.582-4.268 35.451 11.486 51.206 6.361 6.362 14.718 9.542 23.075 9.542 8.356 0 16.713-3.181 23.074-9.542 12.723-12.724 12.723-33.427 0-46.15-15.669-15.671-47.596-11.962-51.185-11.489zm40.577 47.03c-6.875 6.876-18.06 6.875-24.935.001-7.189-7.19-8.149-22.799-7.718-32.64 9.864-.413 25.507.557 32.653 7.702v.001c6.875 6.875 6.875 18.062 0 24.936z"/><circle cx="104.65" cy="361.579" r="7.501"/><circle cx="261.792" cy="325.108" r="7.501"/><circle cx="359.563" cy="102.822" r="7.501"/></g></svg>
+            </div>
+            <span>W</span>  
+        </div>
+        <div id="red-button" onclick="readAloud()"></div>
+    </div>
+</div>
+
+<script>
+    let tvOn = false;
+    let index = 0;
+    
+    // Source: http://marcgg.com/blog/2016/11/01/javascript-audio/
+    let context = new AudioContext();
+    let o = null;
+    let g = null;
+
+    // https://gist.github.com/marcgg/94e97def0e8694f906443ed5262e9cbb/   
+    var noteValues = {
+        'C2': 65.41,
+        'C#2': 69.30,
+        'Db2': 69.30,
+        'D2': 73.42,
+        'D#2': 77.78,
+        'Eb2': 77.78,
+        'E2': 82.41,
+        'F2': 87.31, // H
+        'F#2': 92.50,
+        'Gb2': 92.50,
+        'G2': 98.00, //K
+        'G#2': 103.83,
+        'Ab2': 103.83,
+        'A2': 110.00, // N
+        'A#2': 116.54,
+        'Bb2': 116.54, // P
+        'B2': 123.47,
+        'C3': 130.81, // R
+        'C#3': 138.59,
+        'Db3': 138.59,
+        'D3': 146.83, // U
+        'D#3': 155.56, //V
+        'Eb3': 155.56, //W
+        'E3': 164.81, // X
+        'F3': 174.61, // Y
+        'F#3': 185.00, //Z
+        'Gb3': 185.00, //[
+        'G3': 196.00,  //\
+        'G#3': 207.65, //]
+        'Ab3': 207.65, //^
+        'A3': 220.00,  //_
+        'A#3': 233.08, //`
+        'Bb3': 233.08, //a
+        'B3': 246.94,  //b
+        'C4': 261.63,  //c
+        'C#4': 277.18, //d
+        'Db4': 277.18, //e
+        'D4': 293.66,  //f
+        'D#4': 311.13, //g
+        'Eb4': 311.13, //h
+        'E4': 329.63, //i
+        'F4': 349.23, // j
+        'F#4': 369.99, //k
+        'Gb4': 369.99,//l
+        'G4': 392.00, // m
+        'G#4': 415.30,//n
+        'Ab4': 415.30,//o
+        'A4': 440.00, //p
+        'A#4': 466.16, //q
+        'Bb4': 466.16,//r
+        'B4': 493.88, //s
+        'C5': 523.25,//t
+        'C#5': 554.37,//u
+        'Db5': 554.37,//v
+        'D5': 587.33,//w
+        'D#5': 622.25,//x
+        'Eb5': 622.25,//y
+        'E5': 659.26,//z
+        'F5': 698.46,
+        'F#5': 739.99,
+        'Gb5': 739.99,
+        'G5': 783.99,
+        'G#5': 830.61,
+        'Ab5': 830.61,
+        'A5': 880.00,
+        'A#5': 932.33,
+        'Bb5': 932.33,
+        'B5': 987.77,
+        'C6': 1046.50,
+        'C#6': 1108.73,
+        'Db6': 1108.73,
+        'D6': 1174.66,
+        'D#6': 1244.51,
+        'Eb6': 1244.51,
+        'E6': 1318.51,
+        'F6': 1396.91,
+        'F#6': 1479.98,
+        'Gb6': 1479.98,
+        'G6': 1567.98,
+        'G#6': 1661.22,
+        'Ab6': 1661.22,
+        'A6': 1760.00,
+        'A#6': 1864.66,
+        'Bb6': 1864.66,
+        'B6': 1975.53,
+        'C7': 2093.00,
+        'C#7': 2217.46,
+        'Db7': 2217.46,
+        'D7': 2349.32,
+        'D#7': 2489.02,
+        'Eb7': 2489.02,
+        'E7': 2637.02,
+        'F7': 2793.83,
+        'F#7': 2959.96,
+        'Gb7': 2959.96,
+        'G7': 3135.96,
+        'G#7': 3322.44,
+        'Ab7': 3322.44,
+        'A7': 3520.00,
+        'A#7': 3729.31,
+        'Bb7': 3729.31,
+        'B7': 3951.07,
+        'C8': 4186.01
+    }
+
+    let w = Object.keys(noteValues);
+
+    function playNote(frequency,type){
+        if (!frequency) {
+            console.log("rest");
+            return;
+        }
+        console.log("playing", frequency, "Hz in", type);
+        o=context.createOscillator()
+        g=context.createGain()
+        o.type=type
+        o.connect(g)
+        o.frequency.value=frequency
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001,context.currentTime+1)
+    }
+
+    function readAloud() {
+        // let x = name.toLowerCase();
+        let x = document.getElementById('mainInput').value;
+        let y = x.split("");
+        let z = y.map(m => m.charCodeAt(0) - 65);
+        // 97 is ascii A
+        // 34 is middle C
+
+        let t = 0;
+        z.forEach(l => {
+            setTimeout(function () {
+                playNote(noteValues[w[l]], 'sine');
+                playNote(noteValues[w[l]], 'triangle');
+            }, (Math.random()-0.5) * 60 + 100 * t++);
+        });
+    }
+    function fillTV(songName) {
+        const songs = {
+            'frere-jacque': 'jjmmppjj, jjmmppj, ppprrtt, pprrtt, twwttrr p-jj-t wttrrpp..j.. jj, c, j... jj, c, j',
+            'fur-elise': 'cciipss, iiosst, izxxzzxxzsswwtp, ccippss, iitssp',
+            'uk-anthem': 'mm mmpp kk, m pp.  ss, sstt ss  p mm.. pp mmkk mm',
+            'the-simpsons': 'c... ii-jjppmm.. i, c, _ Z.Z.Z \\',
+            'little-lamb': 'ii, ffccff i-i, i...ff ff, f.. i m, m...i, ffccff i i, ii...ii, f ff, ii, ff, cc',
+            'can-can': 'c... ffjjiiff mm-mm, m p i j ff-ff, f j i f cc tt s p m j i f cc',
+            'we-will-rock-you': 'oooo mmmm jjjj hhhh jj jj',
+            'star-wars': 'a a a g..     q..   n m g x..     q..   n m g x..     m n m n j'
+
+        }
+        document.getElementById('mainInput').value = songs[songName];
+        readAloud();
+    }
+
+</script>
+<style>
+/* For the glitch effect */
+.glitch-wrapper {
+  height: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+}
+.glitch {
+  color: white;
+  font-size: 35px;
+  text-transform: upercase;
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 #49FC00;
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 #b300fc;
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+@-webkit-keyframes glitch-anim {
+  0% {
+    clip: rect(113px, 9999px, 119px, 0);
+  }
+  4.166666666666666% {
+    clip: rect(17px, 9999px, 85px, 0);
+  }
+  8.333333333333332% {
+    clip: rect(103px, 9999px, 83px, 0);
+  }
+  12.5% {
+    clip: rect(14px, 9999px, 50px, 0);
+  }
+  16.666666666666664% {
+    clip: rect(88px, 9999px, 16px, 0);
+  }
+  20.833333333333336% {
+    clip: rect(46px, 9999px, 46px, 0);
+  }
+  25% {
+    clip: rect(1px, 9999px, 84px, 0);
+  }
+  29.166666666666668% {
+    clip: rect(125px, 9999px, 132px, 0);
+  }
+  33.33333333333333% {
+    clip: rect(17px, 9999px, 43px, 0);
+  }
+  37.5% {
+    clip: rect(132px, 9999px, 55px, 0);
+  }
+  41.66666666666667% {
+    clip: rect(13px, 9999px, 128px, 0);
+  }
+  45.83333333333333% {
+    clip: rect(101px, 9999px, 113px, 0);
+  }
+  50% {
+    clip: rect(94px, 9999px, 101px, 0);
+  }
+  54.166666666666664% {
+    clip: rect(69px, 9999px, 124px, 0);
+  }
+  58.333333333333336% {
+    clip: rect(28px, 9999px, 75px, 0);
+  }
+  62.5% {
+    clip: rect(130px, 9999px, 70px, 0);
+  }
+  66.66666666666666% {
+    clip: rect(105px, 9999px, 62px, 0);
+  }
+  70.83333333333334% {
+    clip: rect(72px, 9999px, 77px, 0);
+  }
+  75% {
+    clip: rect(100px, 9999px, 50px, 0);
+  }
+  79.16666666666666% {
+    clip: rect(111px, 9999px, 62px, 0);
+  }
+  83.33333333333334% {
+    clip: rect(62px, 9999px, 12px, 0);
+  }
+  87.5% {
+    clip: rect(67px, 9999px, 48px, 0);
+  }
+  91.66666666666666% {
+    clip: rect(128px, 9999px, 42px, 0);
+  }
+  95.83333333333334% {
+    clip: rect(49px, 9999px, 4px, 0);
+  }
+  100% {
+    clip: rect(28px, 9999px, 94px, 0);
+  }
+}
+@keyframes glitch-anim {
+  0% {
+    clip: rect(113px, 9999px, 119px, 0);
+  }
+  4.166666666666666% {
+    clip: rect(17px, 9999px, 85px, 0);
+  }
+  8.333333333333332% {
+    clip: rect(103px, 9999px, 83px, 0);
+  }
+  12.5% {
+    clip: rect(14px, 9999px, 50px, 0);
+  }
+  16.666666666666664% {
+    clip: rect(88px, 9999px, 16px, 0);
+  }
+  20.833333333333336% {
+    clip: rect(46px, 9999px, 46px, 0);
+  }
+  25% {
+    clip: rect(1px, 9999px, 84px, 0);
+  }
+  29.166666666666668% {
+    clip: rect(125px, 9999px, 132px, 0);
+  }
+  33.33333333333333% {
+    clip: rect(17px, 9999px, 43px, 0);
+  }
+  37.5% {
+    clip: rect(132px, 9999px, 55px, 0);
+  }
+  41.66666666666667% {
+    clip: rect(13px, 9999px, 128px, 0);
+  }
+  45.83333333333333% {
+    clip: rect(101px, 9999px, 113px, 0);
+  }
+  50% {
+    clip: rect(94px, 9999px, 101px, 0);
+  }
+  54.166666666666664% {
+    clip: rect(69px, 9999px, 124px, 0);
+  }
+  58.333333333333336% {
+    clip: rect(28px, 9999px, 75px, 0);
+  }
+  62.5% {
+    clip: rect(130px, 9999px, 70px, 0);
+  }
+  66.66666666666666% {
+    clip: rect(105px, 9999px, 62px, 0);
+  }
+  70.83333333333334% {
+    clip: rect(72px, 9999px, 77px, 0);
+  }
+  75% {
+    clip: rect(100px, 9999px, 50px, 0);
+  }
+  79.16666666666666% {
+    clip: rect(111px, 9999px, 62px, 0);
+  }
+  83.33333333333334% {
+    clip: rect(62px, 9999px, 12px, 0);
+  }
+  87.5% {
+    clip: rect(67px, 9999px, 48px, 0);
+  }
+  91.66666666666666% {
+    clip: rect(128px, 9999px, 42px, 0);
+  }
+  95.83333333333334% {
+    clip: rect(49px, 9999px, 4px, 0);
+  }
+  100% {
+    clip: rect(28px, 9999px, 94px, 0);
+  }
+}
+@-webkit-keyframes glitch-anim-2 {
+  6.666666666666667% {
+    clip: rect(76px, 9999px, 11px, 0);
+  }
+  10% {
+    clip: rect(145px, 9999px, 134px, 0);
+  }
+  13.333333333333334% {
+    clip: rect(22px, 9999px, 76px, 0);
+  }
+  16.666666666666664% {
+    clip: rect(40px, 9999px, 3px, 0);
+  }
+  20% {
+    clip: rect(61px, 9999px, 77px, 0);
+  }
+  23.333333333333332% {
+    clip: rect(99px, 9999px, 9px, 0);
+  }
+  26.666666666666668% {
+    clip: rect(115px, 9999px, 147px, 0);
+  }
+  30% {
+    clip: rect(70px, 9999px, 63px, 0);
+  }
+  33.33333333333333% {
+    clip: rect(116px, 9999px, 44px, 0);
+  }
+  36.666666666666664% {
+    clip: rect(108px, 9999px, 37px, 0);
+  }
+  40% {
+    clip: rect(83px, 9999px, 127px, 0);
+  }
+  43.333333333333336% {
+    clip: rect(79px, 9999px, 52px, 0);
+  }
+  46.666666666666664% {
+    clip: rect(4px, 9999px, 112px, 0);
+  }
+  50% {
+    clip: rect(86px, 9999px, 24px, 0);
+  }
+  53.333333333333336% {
+    clip: rect(18px, 9999px, 41px, 0);
+  }
+  56.666666666666664% {
+    clip: rect(108px, 9999px, 9px, 0);
+  }
+  60% {
+    clip: rect(39px, 9999px, 107px, 0);
+  }
+  63.33333333333333% {
+    clip: rect(73px, 9999px, 32px, 0);
+  }
+  66.66666666666666% {
+    clip: rect(62px, 9999px, 107px, 0);
+  }
+  70% {
+    clip: rect(86px, 9999px, 2px, 0);
+  }
+  73.33333333333333% {
+    clip: rect(72px, 9999px, 52px, 0);
+  }
+  76.66666666666667% {
+    clip: rect(114px, 9999px, 112px, 0);
+  }
+  80% {
+    clip: rect(97px, 9999px, 133px, 0);
+  }
+  83.33333333333334% {
+    clip: rect(15px, 9999px, 140px, 0);
+  }
+  86.66666666666667% {
+    clip: rect(14px, 9999px, 46px, 0);
+  }
+  90% {
+    clip: rect(35px, 9999px, 103px, 0);
+  }
+  93.33333333333333% {
+    clip: rect(32px, 9999px, 107px, 0);
+  }
+  96.66666666666667% {
+    clip: rect(41px, 9999px, 45px, 0);
+  }
+  100% {
+    clip: rect(41px, 9999px, 137px, 0);
+  }
+}
+@keyframes glitch-anim-2 {
+  6.666666666666667% {
+    clip: rect(76px, 9999px, 11px, 0);
+  }
+  10% {
+    clip: rect(145px, 9999px, 134px, 0);
+  }
+  13.333333333333334% {
+    clip: rect(22px, 9999px, 76px, 0);
+  }
+  16.666666666666664% {
+    clip: rect(40px, 9999px, 3px, 0);
+  }
+  20% {
+    clip: rect(61px, 9999px, 77px, 0);
+  }
+  23.333333333333332% {
+    clip: rect(99px, 9999px, 9px, 0);
+  }
+  26.666666666666668% {
+    clip: rect(115px, 9999px, 147px, 0);
+  }
+  30% {
+    clip: rect(70px, 9999px, 63px, 0);
+  }
+  33.33333333333333% {
+    clip: rect(116px, 9999px, 44px, 0);
+  }
+  36.666666666666664% {
+    clip: rect(108px, 9999px, 37px, 0);
+  }
+  40% {
+    clip: rect(83px, 9999px, 127px, 0);
+  }
+  43.333333333333336% {
+    clip: rect(79px, 9999px, 52px, 0);
+  }
+  46.666666666666664% {
+    clip: rect(4px, 9999px, 112px, 0);
+  }
+  50% {
+    clip: rect(86px, 9999px, 24px, 0);
+  }
+  53.333333333333336% {
+    clip: rect(18px, 9999px, 41px, 0);
+  }
+  56.666666666666664% {
+    clip: rect(108px, 9999px, 9px, 0);
+  }
+  60% {
+    clip: rect(39px, 9999px, 107px, 0);
+  }
+  63.33333333333333% {
+    clip: rect(73px, 9999px, 32px, 0);
+  }
+  66.66666666666666% {
+    clip: rect(62px, 9999px, 107px, 0);
+  }
+  70% {
+    clip: rect(86px, 9999px, 2px, 0);
+  }
+  73.33333333333333% {
+    clip: rect(72px, 9999px, 52px, 0);
+  }
+  76.66666666666667% {
+    clip: rect(114px, 9999px, 112px, 0);
+  }
+  80% {
+    clip: rect(97px, 9999px, 133px, 0);
+  }
+  83.33333333333334% {
+    clip: rect(15px, 9999px, 140px, 0);
+  }
+  86.66666666666667% {
+    clip: rect(14px, 9999px, 46px, 0);
+  }
+  90% {
+    clip: rect(35px, 9999px, 103px, 0);
+  }
+  93.33333333333333% {
+    clip: rect(32px, 9999px, 107px, 0);
+  }
+  96.66666666666667% {
+    clip: rect(41px, 9999px, 45px, 0);
+  }
+  100% {
+    clip: rect(41px, 9999px, 137px, 0);
+  }
+}
+
+</style>
+</body>
+</html>
