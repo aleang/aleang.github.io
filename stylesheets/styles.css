@@ -360,7 +360,7 @@ figure {
 }
 figure.multi {
   display: flex;
-  justify-content: space-evenly;
+  overflow-x: scroll;
 }
 figure + p {
   text-align: center;
@@ -580,8 +580,8 @@ h3 {
 
 a {
   color: #3399cc;
-  font-weight: 400;
-  text-decoration: none;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
 a small {
@@ -875,6 +875,7 @@ nav ul li.tag-h1 {
 nav ul li.tag-h1 a {
   font-weight: bold;
   color: #333;
+  text-decoration: none;
 }
 nav ul li.tag-h2 + .tag-h1 {
   margin-top: 10px;
@@ -894,6 +895,23 @@ footer {
   bottom: 20px;
   text-align: right;
   line-height: 16px;
+}
+
+/* Customisation */
+
+span.event {
+  display: block;
+  width: 60%;
+  text-align: left;
+  margin: 20px auto;
+}
+
+span.year {
+  position: absolute;
+  width: 15%;
+  text-align: right;
+  font-size: 20px;
+  font-style: italic;
 }
 
 @media print, screen and (max-width: 1060px) {
@@ -964,18 +982,12 @@ footer {
   header p {
     display: none;
   }
-
+  div.wrapper {
+    top: 0px;
+  }
   #banner {
     top: 80px;
   }
-  #banner .fork {
-    float: left;
-    display: inline-block;
-    margin-left: 0px;
-    position: fixed;
-    left: 20px;
-  }
-
   section {
     margin-top: 130px;
     margin-bottom: 0px;
@@ -1000,13 +1012,12 @@ footer {
     -o-text-overflow: ellipsis;
     -ms-text-overflow: ellipsis;
   }
-
+  #banner {
+    top: 0px;
+    position: relative;
+  }
   section {
     margin-top: 5px;
-  }
-
-  #banner {
-    display: none;
   }
 
   header ul {
