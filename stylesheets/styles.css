@@ -610,6 +610,22 @@ section img {
   max-width: 100%;
 }
 
+p.image {
+  text-align: center;
+}
+
+p.image img {
+  width: 10%;
+  border-radius: 100%;
+  border: 2px solid whitesmoke;
+  box-shadow: 0px 0px 5px grey;
+  margin-right: 10px;
+}
+
+p.image a {
+  text-decoration: none;
+}
+
 blockquote {
   border-left: 1px solid #ffcc00;
   margin: 0;
@@ -772,6 +788,7 @@ header p {
   font-weight: bold;
   display: inline-block;
   text-align: center;
+  text-decoration: none;
 }
 #banner .button:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffe788), color-stop(100%, #ffe788));
@@ -875,7 +892,7 @@ nav ul li.tag-h1 {
 nav ul li.tag-h1 a {
   font-weight: bold;
   color: #333;
-  text-decoration: none;
+  text-decoration: underline grey;
 }
 nav ul li.tag-h2 + .tag-h1 {
   margin-top: 10px;
@@ -920,10 +937,6 @@ span.year {
     margin: 0;
   }
 
-  nav {
-    display: none;
-  }
-
   header, section, footer {
     float: none;
   }
@@ -965,6 +978,11 @@ span.year {
 @media print, screen and (max-width: 720px) {
   body {
     word-wrap: break-word;
+    overflow-x: hidden;
+  }
+
+  nav {
+    display: none;
   }
 
   header {
@@ -997,6 +1015,10 @@ span.year {
   header ul, header p.view {
     position: static;
   }
+
+  p.image img {
+    width: 50px;
+  }
 }
 @media print, screen and (max-width: 480px) {
   header {
@@ -1022,6 +1044,11 @@ span.year {
 
   header ul {
     display: none;
+  }
+
+  span.event {
+    margin-right: 0;
+    width: 80%;
   }
 }
 @media print {
