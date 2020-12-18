@@ -7,7 +7,7 @@ about:version template page
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Our New Christchurch Home</title>
+    <title>Our Christchurch Home</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -19,6 +19,7 @@ about:version template page
     <script src="jquery-1.9.1.min.js"></script>
     <script src="jquery.reel.js"></script>
     <link rel="stylesheet" href="hovereffect.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
     <style>
 
     .header {
@@ -29,6 +30,10 @@ about:version template page
       background-color: white;
       z-index: 50;
       cursor: default;
+    }
+    h2 {
+      margin: 0;
+      padding: 0;
     }
     h3 {
       padding-top: 3em;
@@ -49,175 +54,224 @@ about:version template page
       background-size: cover;
       color:#fff;
       background-color:#333;
+      padding-top: 75px;
+      font-family: sans-serif;
     }
     nav {
-      opacity: .8;
+      opacity: 0.8;
+    }
+
+    @media only screen and (max-width: 500px) {
+      .menu-label {
+        display: none;
+      }
+      .hovereffect {
+        border: 0.5 em white solid;
+      }
+      .hovereffect h2 {
+        font-size: 16px;
+      }
+      .hovereffect p {
+        font-size: 10px;
+      }
+    }
+    @media only screen and (max-width: 380px) {
+      .navbar-nav {
+        display: none;
+      }
+      .hovereffect h2 {
+        font-size: 12px;
+      }
+      .hovereffect p {
+        font-size: 8px;
+      }
     }
     </style>
   </head>
 
   <body>
     <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
+      
         <div class="navbar-header">
         
-        <span class="navbar-brand">Our New Christchurch Home</span>
+        <span class="navbar-brand">Our Christchurch Home</span>
       
         <ul class="nav navbar-nav">
-          <li><a data-scroll href="#downstairs"><span class="glyphicon glyphicon-import"></span> Downstairs</a></li>
-          <li><a data-scroll href="#upstairs"><span class="glyphicon glyphicon-export"></span> Upstairs</a></li>
+          <li>
+            <a data-scroll href="#downstairs">
+              <span class="glyphicon glyphicon-import"></span>
+              <span class="menu-label">Downstairs</span>
+            </a>
+          </li>
+          <li>
+            <a data-scroll href="#upstairs">
+              <span class="glyphicon glyphicon-export"></span>
+              <span class="menu-label">Upstairs</span>
+            </a>
+          </li>
         </ul>
-      </div>
+
      </div> 
     </nav>
 
     <div class="container">
       
       <div class="row">
-        <h3></h3>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-0"></div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-0"></div>
 
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
           <div class="hovereffect">
             <img class="img-responsive" src="img/House.jpg" alt="">
             <div class="overlay">
                 <h2>Our New Home</h2>
-                <p>North facing windows, double internal garage, and 4 bedrooms. The place is heated by two heatpumps and includes underfloor tile heating in bathrooms and kitchen.</p>
+                <p>
+                  North facing windows, double internal garage, and 4 bedrooms. 
+                  The place is heated by two heatpumps and includes underfloor tile heating in bathrooms and kitchen.
+                </p>
             </div>
           </div>
         </div>
-        
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-0"></div>
-
       </div>
 
       <div class="row">
-        <h3 id="downstairs"><span class="glyphicon glyphicon-import"></span> Downstairs</h3>
-        
-        
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-0"></div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
           <div class="hovereffect">
-              <img class="img-responsive" src="img/LivingRoom1.jpg" alt="">
-              <div class="overlay">
-                  <h2>Living Room</h2>
-                  <p>Big open space living room with heat pump and double glazed windows</p>
-              </div>
+            <img class="img-responsive" src="img/Chch.jpg" alt="">
+            <div class="overlay">
+                <h2>Riccarton</h2>
+                <p>
+                  Five minutes walk to the biggest shopping mall in Christchurch and 10 minutes drive to the city center.
+                  Walking distance to Hangley Park where all the summer events are held.
+                </p>
+            </div>
           </div>
         </div>
-      
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-          <div class="hovereffect">
-              <img class="img-responsive" src="img/LivingRoom2.jpg" alt="">
-              <div class="overlay">
-                  <h2>Living Room</h2>
-              </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-          <div class="hovereffect">
-              <img class="img-responsive" src="img/LivingRoom3.jpg" alt="">
-              <div class="overlay">
-                  <h2>Kitchen</h2>
-                  <p>Breakfast bar for two</p>
-              </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-          <div class="hovereffect">
-              <img class="img-responsive" src="img/Dining.jpg" alt="">
-              <div class="overlay">
-                  <h2>Dining</h2>
-              </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-          <div class="hovereffect">
-              <img class="img-responsive" src="img/Kitchen.jpg" alt="">
-              <div class="overlay">
-                  <h2>Kitchen</h2>
-                  <p>Gas hob with double oven, two pantries and heated tiles</p>
-              </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-          <div class="hovereffect">
-              <img class="img-responsive" src="http://placehold.it/639x426" alt="">
-              <div class="overlay">
-                  <h2>Garage</h2>
-                  <p>More photos coming soon</p>
-              </div>
-          </div>
-        </div>
-
       </div>
 
-      
       <div class="row">
-        <h3 id="upstairs"><span class="glyphicon glyphicon-export"></span> Upstairs</h3>
-
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-          <div class="hovereffect">
-              <img class="img-responsive" src="img/Room2.jpg" alt="">
-              <div class="overlay">
-                  <h2>Double Room</h2>
-                  <p>Two similar double room with north facing windows</p>
-              </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-          <div class="hovereffect">
-              <img class="img-responsive" src="img/Room2a.jpg" alt="">
-              <div class="overlay">
-                  <h2>Double Room</h2>
-                  <p>Each room comes with sliding door wardrobe and a full size mirror on a door</p>
-              </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-          <div class="hovereffect">
-              <img class="img-responsive" src="img/Room3.jpg" alt="">
-              <div class="overlay">
-                  <h2>Single Room</h2>
-                  <p>North facing window with a King Single bed and study desk</p>
-              </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-          <div class="hovereffect">
-              <img class="img-responsive" src="img/Room4Master.JPG" alt="">
-              <div class="overlay">
-                  <h2>Master Room</h2>
-                  <p>Master room with built-in wardrobe and ensuite!</p>
-              </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-          <div class="hovereffect">
-            <img class="img-responsive" src="img/Bathroom1.jpg" alt="">
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-          <div class="hovereffect">
-            <img class="img-responsive" src="img/Bathroom2.jpg" alt="">
-          </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <h3 id="downstairs"><span class="glyphicon glyphicon-import"></span> Downstairs</h3>
         </div>
         
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-          <div class="hovereffect">
-            <img class="img-responsive" src="img/Bathroom3.jpg" alt="">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="hovereffect">
+                <img class="img-responsive" src="img/LivingRoom1.jpg" alt="">
+                <div class="overlay">
+                    <h2>Living Room</h2>
+                    <p>Big open space living room with heat pump and double glazed windows</p>
+                </div>
+            </div>
+          </div>
+        
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="hovereffect">
+                <img class="img-responsive" src="img/LivingRoom2.jpg" alt="">
+                <div class="overlay">
+                    <h2>Living Room</h2>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="hovereffect">
+                <img class="img-responsive" src="img/LivingRoom3.jpg" alt="">
+                <div class="overlay">
+                    <h2>Kitchen</h2>
+                    <p>Breakfast bar for two</p>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="hovereffect">
+                <img class="img-responsive" src="img/Dining.jpg" alt="">
+                <div class="overlay">
+                    <h2>Dining</h2>
+                    <p>North facing windows letting in all day lights</p>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="hovereffect">
+                <img class="img-responsive" src="img/Kitchen.jpg" alt="">
+                <div class="overlay">
+                    <h2>Kitchen</h2>
+                    <p>Gas hob with double oven, two pantries and heated tiles</p>
+                </div>
+            </div>
           </div>
         </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <h3 id="upstairs"><span class="glyphicon glyphicon-export"></span> Upstairs</h3>
+        </div>
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="hovereffect">
+                <img class="img-responsive" src="img/Room2.jpg" alt="">
+                <div class="overlay">
+                    <h2>Double Room</h2>
+                    <p>Two similar double room with north facing windows</p>
+                </div>
+            </div>
+          </div>
 
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="hovereffect">
+                <img class="img-responsive" src="img/Room2a.jpg" alt="">
+                <div class="overlay">
+                    <h2>Double Room</h2>
+                    <p>Each room comes with sliding door wardrobe and a full size mirror on a door</p>
+                </div>
+            </div>
+          </div>
 
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="hovereffect">
+                <img class="img-responsive" src="img/Room3.jpg" alt="">
+                <div class="overlay">
+                    <h2>Single Room</h2>
+                    <p>North facing window with a King Single bed and study desk</p>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="hovereffect">
+                <img class="img-responsive" src="img/Room4Master.JPG" alt="">
+                <div class="overlay">
+                    <h2>Master Room</h2>
+                    <p>Master room with built-in wardrobe and ensuite!</p>
+                </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div class="hovereffect">
+                <img class="img-responsive" src="img/Bathroom1.jpg" alt="">
+              </div>
+            </div>
+    
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div class="hovereffect">
+                <img class="img-responsive" src="img/Bathroom2.jpg" alt="">
+              </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div class="hovereffect">
+                <img class="img-responsive" src="img/Bathroom3.jpg" alt="">
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
