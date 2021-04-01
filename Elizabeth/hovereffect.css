@@ -33,18 +33,20 @@
   margin: 0;
   border: 0;
   position: fixed;
+  width: 100vw;
   left: 0;
   top: 0;
   z-index: 2000;
   background: #222222cc;
 }
 .hovereffect.full-mode::after {
-  content: 'Tap anywhere to close';
+  content: '❌';
   color: white;
   background: black;
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
+  font-size: 2em;
   padding: 1em;
 }
 
