@@ -42,10 +42,14 @@ about:version template page
     .nav>li {
       display: inline-block;
     }
-    .hovereffect {
-      margin-bottom: 15px;
-      margin-top: 15px;
+    
+    .full-mode img {
+      width: 100vw;
+      height: 100vw;
+      object-fit: contain;
+      object-position: top;
     }
+
     body {
       background: url('img/avonchch.jpg') no-repeat center center fixed;
       -webkit-background-size: cover;
@@ -120,7 +124,7 @@ about:version template page
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-0"></div>
 
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-          <div class="hovereffect">
+          <div class="hovereffect" onclick="toggleFullView(this)">
             <img class="img-responsive" src="img/House.jpg" alt="">
             <div class="overlay">
                 <h2>Our New Home</h2>
@@ -136,10 +140,10 @@ about:version template page
       <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-0"></div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-          <div class="hovereffect">
+          <div class="hovereffect" onclick="toggleFullView(this)">
             <img class="img-responsive" src="img/Chch.jpg" alt="">
             <div class="overlay">
-                <h2>Riccarton</h2>
+                <h2>Riccarton, Christchurch</h2>
                 <p>
                   Five minutes walk to the biggest shopping mall in Christchurch and 10 minutes drive to the city center.
                   Walking distance to Hangley Park where all the summer events are held.
@@ -156,7 +160,7 @@ about:version template page
         
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="hovereffect">
+            <div class="hovereffect" onclick="toggleFullView(this)">
                 <img class="img-responsive" src="img/LivingRoom1.jpg" alt="">
                 <div class="overlay">
                     <h2>Living Room</h2>
@@ -166,7 +170,7 @@ about:version template page
           </div>
         
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="hovereffect">
+            <div class="hovereffect" onclick="toggleFullView(this)">
                 <img class="img-responsive" src="img/LivingRoom2.jpg" alt="">
                 <div class="overlay">
                     <h2>Living Room</h2>
@@ -175,7 +179,7 @@ about:version template page
           </div>
 
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="hovereffect">
+            <div class="hovereffect" onclick="toggleFullView(this)">
                 <img class="img-responsive" src="img/LivingRoom3.jpg" alt="">
                 <div class="overlay">
                     <h2>Kitchen</h2>
@@ -185,7 +189,7 @@ about:version template page
           </div>
 
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="hovereffect">
+            <div class="hovereffect" onclick="toggleFullView(this)">
                 <img class="img-responsive" src="img/Dining.jpg" alt="">
                 <div class="overlay">
                     <h2>Dining</h2>
@@ -195,7 +199,7 @@ about:version template page
           </div>
 
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="hovereffect">
+            <div class="hovereffect" onclick="toggleFullView(this)">
                 <img class="img-responsive" src="img/Kitchen.jpg" alt="">
                 <div class="overlay">
                     <h2>Kitchen</h2>
@@ -213,7 +217,7 @@ about:version template page
         
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="hovereffect">
+            <div class="hovereffect" onclick="toggleFullView(this)">
                 <img class="img-responsive" src="img/Room2.jpg" alt="">
                 <div class="overlay">
                     <h2>Double Room</h2>
@@ -223,7 +227,7 @@ about:version template page
           </div>
 
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="hovereffect">
+            <div class="hovereffect" onclick="toggleFullView(this)">
                 <img class="img-responsive" src="img/Room2a.jpg" alt="">
                 <div class="overlay">
                     <h2>Double Room</h2>
@@ -233,7 +237,7 @@ about:version template page
           </div>
 
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="hovereffect">
+            <div class="hovereffect" onclick="toggleFullView(this)">
                 <img class="img-responsive" src="img/Room3.jpg" alt="">
                 <div class="overlay">
                     <h2>Single Room</h2>
@@ -243,7 +247,7 @@ about:version template page
           </div>
 
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="hovereffect">
+            <div class="hovereffect" onclick="toggleFullView(this)">
                 <img class="img-responsive" src="img/Room4Master.JPG" alt="">
                 <div class="overlay">
                     <h2>Master Room</h2>
@@ -253,19 +257,19 @@ about:version template page
           </div>
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <div class="hovereffect">
+              <div class="hovereffect" onclick="toggleFullView(this)">
                 <img class="img-responsive" src="img/Bathroom1.jpg" alt="">
               </div>
             </div>
     
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <div class="hovereffect">
+              <div class="hovereffect" onclick="toggleFullView(this)">
                 <img class="img-responsive" src="img/Bathroom2.jpg" alt="">
               </div>
             </div>
             
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <div class="hovereffect">
+              <div class="hovereffect" onclick="toggleFullView(this)">
                 <img class="img-responsive" src="img/Bathroom3.jpg" alt="">
               </div>
             </div>
@@ -285,6 +289,14 @@ about:version template page
         callbackBefore: function ( toggle, anchor ) {},
         callbackAfter: function ( toggle, anchor ) {}
       });
+
+      function toggleFullView(element) {
+        
+        element.classList.toggle('full-mode');
+        
+        
+        console.log(element);
+      }
     </script>
   </body>
 </html>

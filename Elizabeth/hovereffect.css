@@ -6,6 +6,8 @@
   text-align: center;
   cursor: default;
   border: 1em white solid;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 .hovereffect .overlay {
@@ -22,6 +24,28 @@
   -webkit-transform: scale(0,1);
   -ms-transform: scale(0,1);
   transform: scale(0,1);
+}
+
+.hovereffect.full-mode .overlay {
+  display: none;
+}
+.hovereffect.full-mode {
+  margin: 0;
+  border: 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2000;
+  background: #222222cc;
+}
+.hovereffect.full-mode::after {
+  content: 'Tap anywhere to close';
+  color: white;
+  background: black;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 1em;
 }
 
 .hovereffect:hover .overlay {
@@ -43,6 +67,10 @@
   filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="0.6" /><feFuncG type="linear" slope="0.6" /><feFuncB type="linear" slope="0.6" /></feComponentTransfer></filter></svg>#filter');
   filter: brightness(0.6);
   -webkit-filter: brightness(0.6);
+}
+
+.hovereffect.full-mode:hover img {
+  filter: none;
 }
 
 .hovereffect h2 {
