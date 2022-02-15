@@ -135,6 +135,28 @@ a:focus {
   outline: thin dotted;
 }
 
+a.social-media-button {
+  padding: 10px;
+  border-radius: 50%;
+  margin: 3px 5px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-flex;
+  transition: ease-in 200ms;
+}
+.social-media-button:hover {
+  background-color: #acd2d8;
+}
+.social-media-button:active {
+  background-color: #6c979e;
+}
+.social-media-button.square {
+  border-radius: 5px;
+}
+.social-media-button.circle {
+  border-radius: 50%;
+}
+
 /*
  * Improves readability when focused and also mouse hovered in all browsers
  * people.opera.com/patrickl/experiments/keyboard/test
@@ -544,7 +566,7 @@ body {
   font-weight: 300;
   margin: 0px;
   padding: 0px 0 20px 0px;
-  background: url(../images/body-background.png) #eae6d1;
+  background: #f3f1e9;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -740,26 +762,31 @@ header p {
 
 #banner {
   z-index: 100;
-  left: 0;
+  left: -10px;
   right: 50%;
   height: 50px;
   margin-right: -382px;
+  padding: 0 10px 0 40px;
+
   position: fixed;
   top: 115px;
-  background: #ffcc00;
-  border: 1px solid #f0b500;
-  -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-  -o-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-  -moz-border-radius: 0px 2px 2px 0px;
-  -webkit-border-radius: 0px 2px 2px 0px;
-  -o-border-radius: 0px 2px 2px 0px;
-  -ms-border-radius: 0px 2px 2px 0px;
-  -khtml-border-radius: 0px 2px 2px 0px;
-  border-radius: 0px 2px 2px 0px;
-  padding-right: 10px;
+  
+  background: #e9fcff;
+  border-radius: 5px;
+  border: 1px solid #ffffff33;
+  box-shadow: 
+    5px 5px 5px rgba(136, 176, 183, 0.15), 
+    -5px -5px 10px rgba(225, 225, 255, 0.3),
+    inset -3px 3px 10px #6363f133;
+
+  transition: 200ms ease-in;
 }
+
+#banner:hover {
+  background: #f4feff;
+  transform: translateY(-2px);
+}
+
 #banner .button {
   border: 1px solid #dba500;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffe788), color-stop(100%, #ffce38));
@@ -848,7 +875,7 @@ section {
   width: 590px;
   padding: 30px 30px 50px 30px;
   margin: 20px 0;
-  margin-top: 190px;
+  margin-top: 50px;
   position: relative;
   background: #fbfbfb;
   -moz-border-radius: 3px;
@@ -856,12 +883,12 @@ section {
   -o-border-radius: 3px;
   -ms-border-radius: 3px;
   -khtml-border-radius: 3px;
-  border-radius: 3px;
-  border: 1px solid #cbcbcb;
-  -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.09), inset 0px 0px 2px 2px rgba(255, 255, 255, 0.5), inset 0 0 5px 5px rgba(255, 255, 255, 0.4);
-  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.09), inset 0px 0px 2px 2px rgba(255, 255, 255, 0.5), inset 0 0 5px 5px rgba(255, 255, 255, 0.4);
-  -o-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.09), inset 0px 0px 2px 2px rgba(255, 255, 255, 0.5), inset 0 0 5px 5px rgba(255, 255, 255, 0.4);
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.09), inset 0px 0px 2px 2px rgba(255, 255, 255, 0.5), inset 0 0 5px 5px rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    5px 5px 10px 0 rgb(239 237 231),
+    -5px -5px 10px 0 rgb(229 228 222), 
+    inset 3px 4px 10px 5px rgb(248 247 244)
 }
 
 small {
@@ -962,7 +989,7 @@ span.year {
     border: 1px solid #e5e5e5;
     border-width: 1px 0;
     padding: 20px auto;
-    margin: 190px auto 20px;
+    margin: 50px auto 20px;
     max-width: 600px;
   }
 
@@ -1007,7 +1034,7 @@ span.year {
     top: 80px;
   }
   section {
-    margin-top: 130px;
+    margin-top: 30px;
     margin-bottom: 0px;
     width: auto;
   }
