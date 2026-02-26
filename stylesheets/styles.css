@@ -390,16 +390,21 @@ figure + p {
 }
 figure img {
   border: 5px #e9e6d6 solid;
-    box-shadow: 2px 2px 8px #a1a09c;
+  box-shadow: 2px 2px 8px #a1a09c;
+  margin-right: 20px;
+}
+figure.gayzelles img {
+  border: none;
+  border-radius: 15px;
 }
 figure.pedco img {
-  width: 130px;
+  width: 200px;
 }
 figure.pedco-quiz img {
   width: 270px;
 }
 figure.kudos img {
-  width: 180px;
+  width: 200px;
 }
 /* =============================================================================
    Forms
