@@ -938,7 +938,12 @@ footer {
   margin-left: -530px;
   bottom: 20px;
   text-align: right;
-  line-height: 16px;
+  line-height: 0;
+  color: #ccc;
+}
+
+footer a {
+  color: #999;
 }
 
 /* Customisation */
